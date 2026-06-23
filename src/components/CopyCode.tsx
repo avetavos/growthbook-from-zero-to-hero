@@ -1,6 +1,6 @@
 import { useState } from 'preact/hooks';
 
-export default function TryRedis({ code, label = 'Copy commands' }: { code: string; label?: string }) {
+export default function CopyCode({ code, label = 'Copy' }: { code: string; label?: string }) {
   const [copied, setCopied] = useState(false);
   function copy() {
     try { navigator.clipboard?.writeText(code).catch(() => {}); } catch {}
@@ -10,7 +10,7 @@ export default function TryRedis({ code, label = 'Copy commands' }: { code: stri
   return (
     <div class="tr">
       <pre class="tr__code"><code>{code}</code></pre>
-      <button class="tr__btn" onClick={copy}>{copied ? 'Copied — paste into your redis-cli' : `${label} ⧉`}</button>
+      <button class="tr__btn" onClick={copy}>{copied ? 'Copied' : `${label} ⧉`}</button>
     </div>
   );
 }
