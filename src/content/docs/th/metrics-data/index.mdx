@@ -8,6 +8,7 @@ sidebar:
 import Callout from '../../../../components/Callout.astro';
 import Quiz from '../../../../components/Quiz.tsx';
 import ProgressTracker from '../../../../components/ProgressTracker.tsx';
+import Mermaid from '../../../../components/Mermaid.astro';
 
 ## ทำไม metrics และข้อมูลจึงสำคัญ
 
@@ -25,13 +26,13 @@ Feature flags ช่วยให้คุณควบคุมสิ่งที
 
 ## GrowthBook ใน stack ของคุณ
 
-```
-แอปของคุณ
-  └─ SDK ส่ง experiment_viewed(userId, variation)
-       └─ Warehouse (BigQuery / Snowflake / ...)
-            └─ GrowthBook query เมื่อต้องการ
-                 └─ แสดงผลใน GrowthBook UI
-```
+export const pipelineDiagram = `flowchart TD
+  app["Your App"] --> sdk["SDK fires experiment_viewed(userId, variation)"]
+  sdk --> wh["Warehouse (BigQuery / Snowflake / ...)"]
+  wh --> gb["GrowthBook queries on demand"]
+  gb --> ui["Results shown in GrowthBook UI"]`;
+
+<Mermaid code={pipelineDiagram} title="How GrowthBook fits in your stack" />
 
 GrowthBook ไม่เคย ingest raw events โดยตรง มันเชื่อมต่อกับ warehouse ของคุณด้วย read-only credentials และรัน SQL queries เมื่อคุณกด **Update Data** ใน UI หรือตั้งเวลา refresh
 

@@ -8,6 +8,7 @@ sidebar:
 import Callout from '../../../../components/Callout.astro';
 import Quiz from '../../../../components/Quiz.tsx';
 import ProgressTracker from '../../../../components/ProgressTracker.tsx';
+import Mermaid from '../../../../components/Mermaid.astro';
 
 ## Why metrics and data matter
 
@@ -25,13 +26,13 @@ Feature flags let you control what users see. But to know whether a change is ac
 
 ## How GrowthBook fits in your stack
 
-```
-Your App
-  └─ SDK fires experiment_viewed(userId, variation)
-       └─ Warehouse (BigQuery / Snowflake / ...)
-            └─ GrowthBook queries on demand
-                 └─ Results shown in GrowthBook UI
-```
+export const pipelineDiagram = `flowchart TD
+  app["Your App"] --> sdk["SDK fires experiment_viewed(userId, variation)"]
+  sdk --> wh["Warehouse (BigQuery / Snowflake / ...)"]
+  wh --> gb["GrowthBook queries on demand"]
+  gb --> ui["Results shown in GrowthBook UI"]`;
+
+<Mermaid code={pipelineDiagram} title="How GrowthBook fits in your stack" />
 
 GrowthBook never ingests raw events. It connects to your warehouse with read-only credentials and runs SQL queries when you click **Update Data** in the UI or schedule a refresh.
 

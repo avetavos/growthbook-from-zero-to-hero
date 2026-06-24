@@ -9,6 +9,7 @@ import CopyCode from '../../../../components/CopyCode.tsx';
 import Callout from '../../../../components/Callout.astro';
 import Quiz from '../../../../components/Quiz.tsx';
 import ProgressTracker from '../../../../components/ProgressTracker.tsx';
+import Mermaid from '../../../../components/Mermaid.astro';
 
 ## default value กับ override rules
 
@@ -21,13 +22,15 @@ import ProgressTracker from '../../../../components/ProgressTracker.tsx';
 
 ## fallback สามชั้น
 
-```
-SDK call
-  └─ GrowthBook loaded?
-       ├─ YES → evaluate rules → match found? → return rule value
-       │                       └─ no match  → return Feature default value
-       └─ NO  → return the fallback argument from your code
-```
+export const fallbackDiagram = `flowchart TD
+  call["SDK call"] --> loaded{"GrowthBook loaded?"}
+  loaded -- "YES" --> rules["Evaluate rules"]
+  loaded -- "NO" --> fb["Return the fallback argument from your code"]
+  rules --> match{"Match found?"}
+  match -- "Yes" --> rv["Return rule value"]
+  match -- "No match" --> dv["Return Feature default value"]`;
+
+<Mermaid code={fallbackDiagram} title="The three fallback layers" />
 
 ## ส่ง fallback ที่สมเหตุสมผลเสมอ
 
