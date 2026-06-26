@@ -15,6 +15,15 @@ export default defineConfig({
       title: 'GrowthBook — From Zero to Hero',
       head: [
         { tag: 'script', attrs: { type: 'module', src: '/growthbook-from-zero-to-hero/enhance.js' } },
+        { tag: 'link', attrs: { rel: 'manifest', href: '/growthbook-from-zero-to-hero/manifest.webmanifest' } },
+        { tag: 'link', attrs: { rel: 'apple-touch-icon', href: '/growthbook-from-zero-to-hero/apple-touch-icon.png' } },
+        { tag: 'link', attrs: { rel: 'icon', type: 'image/png', sizes: '192x192', href: '/growthbook-from-zero-to-hero/icon-192.png' } },
+        { tag: 'meta', attrs: { name: 'theme-color', content: '#7C3AED' } },
+        { tag: 'meta', attrs: { name: 'mobile-web-app-capable', content: 'yes' } },
+        { tag: 'meta', attrs: { name: 'apple-mobile-web-app-capable', content: 'yes' } },
+        { tag: 'meta', attrs: { name: 'apple-mobile-web-app-status-bar-style', content: 'black-translucent' } },
+        { tag: 'meta', attrs: { name: 'apple-mobile-web-app-title', content: "GrowthBook" } },
+        { tag: 'script', content: "if('serviceWorker' in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('/growthbook-from-zero-to-hero/sw.js',{scope:'/growthbook-from-zero-to-hero/'}).catch(function(){})})}" },
       ],
       defaultLocale: 'en',
       locales: {
