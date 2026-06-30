@@ -1,28 +1,28 @@
 {
-  "id": "/",
+  "id": "/growthbook/",
   "name": "GrowthBook — From Zero to Hero",
   "short_name": "GrowthBook",
-  "start_url": "/en/",
-  "scope": "/",
+  "start_url": "/growthbook/en/",
+  "scope": "/growthbook/",
   "display": "standalone",
   "orientation": "any",
   "background_color": "#0d1117",
   "theme_color": "#7C3AED",
   "icons": [
     {
-      "src": "/icon-192.png",
+      "src": "/growthbook/icon-192.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "/icon-512.png",
+      "src": "/growthbook/icon-512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "/icon-512.png",
+      "src": "/growthbook/icon-512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable"
