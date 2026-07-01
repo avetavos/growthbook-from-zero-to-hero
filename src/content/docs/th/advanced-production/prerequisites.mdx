@@ -86,6 +86,23 @@ console.log({ paymentOn, checkoutOn, expressOn });`;
 Prerequisites ทำให้ flag ขึ้นอยู่กับ flag อื่น — มีประโยชน์สำหรับ staged dependencies ที่การปิด parent flag ควรปิด children ทั้งหมดโดยเงียบๆ โดยไม่ต้อง deploy โค้ด
 </Callout>
 
+## Trade-offs
+
+| ตัวเลือก | Benefit | Cost |
+|---|---|---|
+| ตั้ง Prerequisite flag | ป้องกัน dependency ผิดลำดับ | เพิ่มความซับซ้อนของ dependency graph |
+| ไม่ตั้ง Prerequisite | ง่ายกว่า | เสี่ยง feature ถูกเปิดก่อนที่ dependency พร้อม |
+
+## Common Mistakes
+
+- สร้าง circular dependency ระหว่าง flag (flag A ต้องพึ่ง B, B ต้องพึ่ง A)
+- ลืมว่า prerequisite ที่ปิดจะทำให้ feature ลูกปิดไปด้วยเสมอ
+- ไม่ document dependency graph ทำให้ทีมอื่นไม่รู้ว่าทำไม flag ถึงปิดอยู่
+
+> 💡 Real World Example
+>
+> ระบบ platform ขนาดใหญ่ใช้ prerequisite flag เพื่อบังคับว่า feature ใหม่ต้องรอ infrastructure flag (เช่น "new-api-ready") เปิดก่อนเสมอ
+
 export const quizPrerequisites = [
   {
     q: 'เกิดอะไรขึ้นกับ dependent flag เมื่อ prerequisite parent flag ปิดอยู่?',

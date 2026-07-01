@@ -67,6 +67,23 @@ Dimensions มีประโยชน์สำหรับตรวจสอบ
 การดูผลก่อนกำหนดและตัดสินใจเมื่อ sample size ยังน้อยเรียกว่า "peeking" — มันทำให้ false positive rate เพิ่มขึ้นอย่างมาก ให้ experiment รันถึง sample size หรือระยะเวลาที่วางแผนไว้ก่อนสรุปผล ใช้ sequential testing option ของ GrowthBook ถ้าต้องการดูผลระหว่างทางอย่างปลอดภัย
 </Callout>
 
+## Trade-offs
+
+| ตัวเลือก | Benefit | Cost |
+|---|---|---|
+| รอผลจนครบ sample size ที่วางแผน | มั่นใจกว่าทางสถิติ | ใช้เวลานานกว่าจะได้ตัดสินใจ |
+| ดูผลกลางทางแล้วตัดสินใจเร็ว | เร็วกว่า | เสี่ยง false positive ถ้าไม่ใช้ sequential testing |
+
+## Common Mistakes
+
+- หยุด experiment ทันทีที่เห็น "ชนะ" โดยไม่รอ statistical significance
+- มองแค่ metric เดียวโดยไม่เช็ค guardrail metrics
+- ตีความ "ไม่ significant" ว่า "ไม่มีผล" ทั้งที่อาจแค่ sample size ไม่พอ
+
+> 💡 Real World Example
+>
+> ทีม growth ที่ Spotify มีกฎห้าม ship ผล experiment ที่ยังไม่ถึง statistical significance ไม่ว่าผลจะดูดีแค่ไหนก็ตาม
+
 export const quizExperimentResults = [
   {
     q: '"Chance to Win" ใน Bayesian results ของ GrowthBook หมายความว่าอะไร?',

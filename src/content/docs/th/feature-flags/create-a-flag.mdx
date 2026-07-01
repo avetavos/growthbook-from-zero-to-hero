@@ -92,6 +92,23 @@ const flagValue = gb.getFeatureValue('my-flag', false);`;
 **key** ของ feature คือสัญญาระหว่าง GrowthBook กับโค้ดของคุณ — ต้องรักษาให้คงที่ การเปลี่ยนชื่อ key ใน GrowthBook หลังจากที่คุณ deploy ไปแล้วจะทำให้ทุกการเรียก SDK ที่ยังใช้ชื่อเก่าพังหมด
 </Callout>
 
+## Trade-offs
+
+| ตัวเลือก | Benefit | Cost |
+|---|---|---|
+| Boolean flag | เรียบง่าย เข้าใจง่ายที่สุด | ใช้ได้แค่ on/off ไม่ flexible |
+| Multi-variate / JSON flag | flexible กว่ามาก ปรับ config ได้ละเอียด | ซับซ้อนกว่าในการ maintain และ validate |
+
+## Common Mistakes
+
+- สร้าง flag โดยไม่ตั้งชื่อที่สื่อความหมาย (เช่น `flag1`)
+- ไม่ตั้ง description ทำให้ทีมอื่นไม่เข้าใจว่า flag ทำอะไร
+- สร้าง flag ซ้ำสำหรับ feature เดียวกันในหลาย environment
+
+> 💡 Real World Example
+>
+> Spotify ใช้ feature flag ตั้งชื่อตาม convention ที่ชัดเจน (team-feature-purpose) เพื่อให้ค้นหาและ audit ได้ง่ายเมื่อมี flag หลักพันตัว
+
 export const quizCreateFlag = [
   {
     q: 'ในส่วนไหนของ GrowthBook UI ที่คุณใช้สร้าง Feature ใหม่?',

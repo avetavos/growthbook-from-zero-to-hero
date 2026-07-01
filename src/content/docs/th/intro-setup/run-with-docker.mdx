@@ -88,6 +88,23 @@ docker compose logs -f growthbook`;
   Port 3000 คือแอป GrowthBook — admin UI ของคุณ ส่วน Port 3100 คือ SDK API — endpoint ที่แอปของคุณเรียกเพื่อดึง feature flags ทั้งสองมาจากสแตก Compose เดียวกัน
 </Callout>
 
+## Trade-offs
+
+| ตัวเลือก | Benefit | Cost |
+|---|---|---|
+| Self-host ด้วย Docker Compose | ควบคุมได้เต็มที่ ไม่มีค่าใช้จ่าย | ต้องจัดการ ops เอง (backup, upgrade, uptime) |
+| GrowthBook Cloud | ไม่ต้องดูแล infrastructure | เสียการควบคุมข้อมูลบางส่วนและอาจมีค่าใช้จ่าย |
+
+## Common Mistakes
+
+- รัน GrowthBook โดยไม่ persist MongoDB volume ทำให้ data หายตอน restart container
+- ไม่ตั้ง environment variable สำคัญ (เช่น `MONGODB_URI`, `JWT_SECRET`) ให้ปลอดภัยสำหรับ production
+- ลืม backup database ก่อน upgrade version
+
+> 💡 Real World Example
+>
+> ทีม startup ขนาดเล็กมักเริ่มด้วย self-host Docker Compose เพื่อประหยัดค่าใช้จ่ายก่อนย้ายไป managed hosting เมื่อทีมโตขึ้น
+
 export const quizDocker = [
   {
     q: "Port ไหนให้บริการ GrowthBook web UI?",

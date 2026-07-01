@@ -83,6 +83,16 @@ console.log(config.theme); // 'dark' if the flag is on, 'light' otherwise`;
 GrowthBook รัน experiment บน data warehouse ของคุณเอง — มันไม่เคยดึงเข้าหรือเก็บ raw event data ของคุณเลย
 </Callout>
 
+## Common Mistakes
+
+- มองว่า GrowthBook เป็นแค่ "ตัวเปิดปิด feature" โดยไม่ใช้ส่วน experimentation/analytics เลย
+- เลือก self-host โดยไม่มีทีม ops ดูแล ทำให้ downtime บ่อย
+- ไม่เชื่อม data warehouse จริงทำให้ analytics ไม่มีข้อมูลให้วิเคราะห์
+
+> 💡 Real World Example
+>
+> Netflix ใช้ระบบ feature flagging และ experimentation ภายในที่แนวคิดคล้ายกันเพื่อทดสอบ UI กับผู้ใช้หลายสิบล้านคนพร้อมกัน; Booking.com รันหลักพัน experiment พร้อมกันตลอดเวลาด้วยแนวคิดเดียวกับที่ GrowthBook ใช้
+
 export const quizWhatIs = [
   {
     q: 'GrowthBook มีเสาหลักกี่เสา?',

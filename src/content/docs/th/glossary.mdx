@@ -1,0 +1,76 @@
+---
+title: Glossary
+description: คำศัพท์ GrowthBook และ experimentation ที่ใช้ตลอด course นี้ — รักษา terminology ภาษาอังกฤษตามที่ทีม product และ engineering ใช้จริง
+sidebar:
+  order: 99
+---
+
+import Callout from '../../../components/Callout.astro';
+import ProgressTracker from '../../../components/ProgressTracker.tsx';
+
+## Feature Management
+
+| English | Thai Style | หมายเหตุ |
+|---------|-----------|---------|
+| Feature Flag / Feature Toggle | Feature Flag | จุดตัดสินใจในโค้ดที่เปิด/ปิดได้โดยไม่ต้อง deploy |
+| Rollout | rollout | การทยอยปล่อย feature ให้ผู้ใช้ |
+| Progressive Rollout | Progressive Rollout | rollout แบบทยอยเพิ่ม % ทีละขั้น |
+| Canary Release | Canary Release | ปล่อยให้กลุ่มเล็กก่อนเพื่อดูผล |
+| Percentage Rollout | Percentage Rollout | กำหนด % ของ user ที่เห็น feature |
+| Kill Switch | Kill Switch | ปิด feature ทันทีเมื่อเกิดปัญหา |
+| Environment | environment | บริบท deploy เช่น dev/staging/production |
+| SDK | SDK | library ที่ใช้อ่านค่า flag ในโค้ด |
+
+## Targeting & Segmentation
+
+| English | Thai Style | หมายเหตุ |
+|---------|-----------|---------|
+| Segmentation | segmentation | การแบ่งกลุ่ม user |
+| Targeting | targeting | กำหนดเงื่อนไขว่า user กลุ่มไหนเห็น feature |
+| Attribute | attribute | ข้อมูล user ที่ใช้ในการ targeting |
+| Sticky Bucketing | Sticky Bucketing | ทำให้ user เห็น variation เดิมเสมอ |
+| Saved Group | Saved Group | segment ที่บันทึกไว้ใช้ซ้ำได้ |
+| Namespace | namespace | กันไม่ให้ experiment ที่ conflict กันรันพร้อมกัน |
+| Holdout | holdout | กลุ่ม user ที่ไม่เห็น feature เพื่อวัด long-term impact |
+
+## Experimentation
+
+| English | Thai Style | หมายเหตุ |
+|---------|-----------|---------|
+| Experiment | Experiment | การทดสอบแบบควบคุมเพื่อวัดผล |
+| A/B Test | A/B Test | experiment ที่เปรียบเทียบ 2 variation ขึ้นไป |
+| Variant / Variation | Variant | เวอร์ชันหนึ่งที่ user ถูก assign เข้าไป |
+| Cohort | Cohort | กลุ่ม user ที่เข้าร่วม experiment ในช่วงเวลาเดียวกัน |
+| Exposure | Exposure | เหตุการณ์ที่ user เห็น variation |
+| Assignment | Assignment | การจัดสรร user เข้า variation |
+| Hypothesis | hypothesis | สมมติฐานที่ experiment พยายามพิสูจน์ |
+
+## Metrics & Statistics
+
+| English | Thai Style | หมายเหตุ |
+|---------|-----------|---------|
+| Metric | Metric | ผลลัพธ์ที่วัดได้ เช่น conversion, revenue |
+| Guardrail Metric | Guardrail Metric | metric ที่คอยตรวจว่าไม่ถดถอย |
+| Tracking | tracking | การเก็บ event เพื่อวัด metric |
+| Conversion Rate | Conversion Rate | อัตราการเกิด event ที่ต้องการ |
+| Statistical Significance | Statistical Significance | ความมั่นใจว่าผลไม่ได้เกิดจากสุ่ม |
+| Confidence Interval | Confidence Interval | ช่วงที่ true effect น่าจะอยู่ |
+| Sample Size | Sample Size | จำนวน user ที่ต้องการใน experiment |
+| Bayesian | Bayesian | stats engine ที่ให้ผลแบบ probability |
+| Frequentist | Frequentist | stats engine แบบ classical hypothesis testing |
+
+## เมื่อ **ไม่** ควรใช้ literal Thai translation
+
+| หลีกเลี่ยง | ใช้แทน |
+|------------|--------|
+| ดำเนินการเปิดใช้งานคุณลักษณะ | เปิด feature |
+| ดำเนินการทดสอบ | ทำ experiment |
+| กระบวนการแบ่งกลุ่ม | แบ่ง user |
+| การกำหนดเงื่อนไข | กำหนด targeting |
+| การปล่อยใช้งาน | rollout |
+
+<Callout title="ทำไมคำเหล่านี้ไม่แปลเป็นไทยทั้งหมด">
+Course นี้เก็บคำศัพท์ด้าน feature management และ experimentation ไว้เป็นภาษาอังกฤษ เพราะเป็นคำที่ทีม product และ engineering ใช้พูดคุยกันจริงในที่ทำงาน — ทั้งใน dashboard ของ GrowthBook เองและใน dashboard เครื่องมือคู่แข่งอื่น ๆ การแปลคำเหล่านี้ทั้งหมดจะทำให้สื่อสารกับทีมและเอกสารต้นฉบับไม่ตรงกัน
+</Callout>
+
+<ProgressTracker client:visible id="th/glossary" />

@@ -70,6 +70,16 @@ Sequential testing (หรือเรียกว่า "always-valid inference
 สำหรับทีม product ส่วนใหญ่ Bayesian "chance to win" เป็น decision signal ที่เข้าใจง่ายที่สุด — ไม่ต้องอธิบาย p-values หรือ significance thresholds เปลี่ยนไปใช้ Frequentist ถ้าองค์กรของคุณมาตรฐาน p-values นักสถิติต้องการ หรือคุณ publish ผลออกภายนอก ทั้งสอง engine รองรับ CUPED
 </Callout>
 
+## Common Mistakes
+
+- เปลี่ยน stats engine กลาง experiment ทำให้ผลลัพธ์เปรียบเทียบกันไม่ได้
+- ใช้ Frequentist โดยไม่เปิด sequential testing แล้วดูผลทุกวัน (peeking problem เพิ่ม false positive)
+- ไม่เข้าใจความแตกต่างระหว่าง "significant" กับ "important" (ผล significant เล็กน้อยอาจไม่มีความหมายทางธุรกิจ)
+
+> 💡 Real World Example
+>
+> ทีม data science ขนาดใหญ่มักเลือก Frequentist เพราะ auditor/stakeholder ภายนอกคุ้นเคยกับ p-value มากกว่า ในขณะที่ทีม product ทั่วไปชอบ Bayesian "chance to win" เพราะสื่อสารง่ายกว่า
+
 export const quizStatsEngine = [
   {
     q: 'Bayesian "Chance to Win" metric หมายความว่าอะไร?',

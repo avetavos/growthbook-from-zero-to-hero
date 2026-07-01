@@ -79,6 +79,23 @@ gb.setAttributes({
 หากโค้ดของคุณไม่เคยเรียก `setAttributes` พร้อม `country` rule ใด ๆ ที่เจาะกลุ่มด้วย `country` จะไม่มีวัน match ควรรักษา attribute ใน SDK ให้ตรงกับสิ่งที่คุณกำหนดไว้ใน Settings → Attributes เสมอ
 </Callout>
 
+## Trade-offs
+
+| ตัวเลือก | Benefit | Cost |
+|---|---|---|
+| ส่ง attribute ละเอียด | targeting แม่นยำกว่ามาก | เสี่ยง privacy/PII ถ้าส่งข้อมูลที่ไม่จำเป็น |
+| ส่ง attribute น้อย เฉพาะที่จำเป็น | ปลอดภัยกว่า | targeting หยาบกว่า |
+
+## Common Mistakes
+
+- ส่ง PII (เช่น email เต็ม) เป็น attribute โดยไม่จำเป็น
+- ใช้ attribute ที่เปลี่ยนบ่อย (เช่น timestamp) เป็น targeting key ทำให้ assignment ไม่เสถียร
+- ไม่ sync attribute schema ระหว่าง SDK กับที่ตั้งไว้ใน GrowthBook UI
+
+> 💡 Real World Example
+>
+> แอป fintech อย่าง Booking.com ส่งเฉพาะ attribute ที่จำเป็นต่อ targeting (เช่น country, plan tier) แทนข้อมูลส่วนตัวเพื่อลดความเสี่ยงด้าน privacy
+
 export const quizAttributes = [
   {
     q: 'จุดประสงค์ของการเรียก `gb.setAttributes(...)` ใน SDK คืออะไร?',

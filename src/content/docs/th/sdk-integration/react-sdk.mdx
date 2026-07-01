@@ -76,6 +76,23 @@ function HomePage() {
   เพิ่ม `<GrowthBookProvider>` ครั้งเดียวที่ root ของ app จากนั้นเรียก hook อย่าง `useFeatureIsOn` ในทุก component ได้เลยโดยไม่ต้อง prop-drilling
 </Callout>
 
+## Trade-offs
+
+| ตัวเลือก | Benefit | Cost |
+|---|---|---|
+| `GrowthBookProvider` + hooks | integrate เข้ากับ React lifecycle เนียนกว่า re-render อัตโนมัติ | ต้องเข้าใจ React Context pattern |
+| เรียก SDK ตรงๆ นอก React | ควบคุม logic ได้เต็มที่ | ต้อง sync re-render เอง เสี่ยง UI ไม่ update ตาม flag |
+
+## Common Mistakes
+
+- เรียก `useFeatureValue` ก่อนที่ SDK จะ `init()` เสร็จ ทำให้ได้ default value เสมอ
+- สร้าง GrowthBook instance ใหม่ทุกครั้งที่ component re-render
+- ไม่ wrap app ด้วย `GrowthBookProvider` ทำให้ context หาย
+
+> 💡 Real World Example
+>
+> ทีม frontend จำนวนมากใช้ pattern เดียวกับที่ใช้กับ React Context ทั่วไป — provider ชั้นบนสุด แล้ว hook อ่านค่าที่ layer ล่าง
+
 export const quizReactSdk = [
   {
     q: 'package ใดที่ให้ React-specific GrowthBook hooks?',

@@ -92,6 +92,23 @@ const isOn = gb.isOn('my-flag');`;
 แต่ละ environment มี SDK Connection (clientKey) ของตัวเอง และสถานะ flag ที่อิสระจากกันโดยสมบูรณ์ การเปิด flag ใน development ไม่เคยไปแตะต้อง production เลย เก็บ clientKey ไว้ใน environment variable เสมอ — อย่าฮาร์ดโค้ดมันลงใน source
 </Callout>
 
+## Trade-offs
+
+| ตัวเลือก | Benefit | Cost |
+|---|---|---|
+| แยก environment ชัดเจน (dev/staging/prod) | ปลอดภัยกว่า ทดสอบก่อนปล่อยจริงได้ | จัดการหลาย SDK key/permission ซับซ้อนกว่า |
+| ใช้ environment เดียว | ตั้งค่าเร็วกว่า | เสี่ยง flag รั่วเข้า production โดยไม่ตั้งใจ |
+
+## Common Mistakes
+
+- ทดสอบ flag ใน production environment ตรงๆ โดยไม่ผ่าน staging ก่อน
+- ลืม sync ค่า flag ระหว่าง environment ทำให้ staging กับ production ไม่ตรงกัน
+- ให้สิทธิ์แก้ไข production environment กับทุกคนในทีมโดยไม่จำกัด
+
+> 💡 Real World Example
+>
+> ทีม engineering ขนาดใหญ่อย่าง Booking.com แยก permission ต่อ environment อย่างเข้มงวด — เฉพาะ senior engineer เท่านั้นที่แก้ production ได้
+
 export const quizEnvironments = [
   {
     q: 'โปรเจกต์ GrowthBook ทั่วไปมี SDK Connection กี่ตัวสำหรับสาม environment?',

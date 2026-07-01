@@ -61,6 +61,23 @@ if (gb.isOn('my-feature')) {
 SDK Connection จะจำกัดขอบเขต clientKey หนึ่งตัวไว้กับ environment ที่เฉพาะเจาะจง ใช้ SDK Connection แยกกัน (และดังนั้นจึงมี clientKey แยกกัน) สำหรับ development กับ production เพื่อให้สถานะของ flag แยกขาดจากกัน
 </Callout>
 
+## Trade-offs
+
+| ตัวเลือก | Benefit | Cost |
+|---|---|---|
+| SDK key แยกต่อ environment | ปลอดภัยกว่า จำกัด blast radius | จัดการหลาย key ซับซ้อนกว่า |
+| SDK key เดียวกันทุกที่ | ตั้งค่าเร็วกว่า | เสี่ยง flag รั่วข้าม environment |
+
+## Common Mistakes
+
+- ใช้ SDK key เดียวกันทั้ง dev และ production ทำให้ทดสอบ flag ผิด environment โดยไม่ตั้งใจ
+- hardcode `clientKey` ในโค้ด client-side โดยไม่ผ่าน environment variable
+- ไม่ตั้ง timeout ให้ `gb.init()` ทำให้แอป hang รอ network
+
+> 💡 Real World Example
+>
+> ทีม engineering ขนาดใหญ่แยก SDK connection ต่อ service/microservice เพื่อจำกัด blast radius ถ้า key รั่วออกไป
+
 export const quizSdkConn = [
   {
     q: 'apiHost สำหรับ GrowthBook SDK แบบ self-hosted คืออะไร?',

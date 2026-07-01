@@ -62,6 +62,23 @@ console.log('Variation:', result.value);`;
 Sticky bucketing ป้องกันไม่ให้ผู้ใช้สลับ variation ระหว่าง experiment
 </Callout>
 
+## Trade-offs
+
+| ตัวเลือก | Benefit | Cost |
+|---|---|---|
+| Sticky Bucketing | ผู้ใช้เห็น variation เดิมเสมอ UX consistent | ต้องจัดการ storage (cookie/localStorage) เพิ่ม |
+| ไม่ sticky (recalculate ทุกครั้ง) | ง่ายกว่า ไม่ต้องเก็บ state | ผู้ใช้อาจเห็น variation เปลี่ยนกลางทาง |
+
+## Common Mistakes
+
+- ไม่เปิด sticky bucketing สำหรับ experiment ที่ user เห็นผลต่อเนื่องยาวนาน (เช่น pricing) ทำให้ user เห็นราคาสลับไปมา
+- เปลี่ยน targeting attribute ระหว่าง experiment กำลังรันโดยไม่เข้าใจผลกระทบต่อ sticky assignment
+- ไม่ตั้ง storage ที่เหมาะสมสำหรับเก็บ sticky bucket ฝั่ง client
+
+> 💡 Real World Example
+>
+> platform e-commerce ที่ทดสอบราคาสินค้าแบบ A/B ต้องใช้ sticky bucketing เสมอ เพื่อไม่ให้ user เดียวกันเห็นราคาต่างกันในการเข้าชมแต่ละครั้ง
+
 export const quizStickyBucketing = [
   {
     q: 'Sticky bucketing แก้ปัญหาอะไร?',

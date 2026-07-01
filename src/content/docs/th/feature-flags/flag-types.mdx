@@ -96,6 +96,24 @@ console.log(config.size);  // 'md' or whatever GrowthBook returns`;
 JSON flag ช่วยให้คุณส่ง configuration ได้ ไม่ใช่แค่สวิตช์เปิด/ปิด แทนที่จะ deploy flag แยกกันห้าตัวสำหรับการออกแบบหน้า pricing ใหม่ ให้ใส่ตัวเลือกทั้งหมดไว้ใน JSON flag เดียวแล้วเปลี่ยนมันแบบ atomic ใน GrowthBook
 </Callout>
 
+## Trade-offs
+
+| Type | Benefit | Cost |
+|---|---|---|
+| Boolean | ง่ายสุด เข้าใจทันที | ใช้ได้กับ on/off เท่านั้น |
+| String / Number | ทำ multi-variant ได้ | ต้องจัดการหลายค่ามากกว่า boolean |
+| JSON | flexible สุด ปรับ config ซับซ้อนได้ | ผู้ใช้ต้อง parse/validate เอง เสี่ยง runtime error |
+
+## Common Mistakes
+
+- ใช้ JSON flag สำหรับ config ที่ควรเป็นแค่ boolean ทำให้ซับซ้อนเกินจำเป็น
+- ไม่ validate schema ของ JSON flag ทำให้แอป crash ถ้ามีคน edit ผิด
+- เปลี่ยน value type ของ flag ที่มีอยู่แล้วทำให้โค้ดเดิมพัง
+
+> 💡 Real World Example
+>
+> Netflix ใช้ JSON-type flag สำหรับ config UI ที่ซับซ้อน (เช่น layout ของหน้า home) เพื่อปรับแต่งได้ละเอียดโดยไม่ต้อง deploy
+
 export const quizFlagTypes = [
   {
     q: 'value type แบบไหนที่คุณควรใช้สำหรับ feature gate แบบง่าย (แสดง/ซ่อนองค์ประกอบ UI)?',

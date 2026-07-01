@@ -111,6 +111,23 @@ document.getElementById('banner').textContent = bannerText;`;
 ส่ง fallback ที่สมเหตุสมผลให้ `getFeatureValue` เสมอ เพื่อให้แอปของคุณทำงานได้ถูกต้องหาก GrowthBook เข้าถึงไม่ได้ fallback ควรแทนประสบการณ์ผู้ใช้ที่เสถียรและปลอดภัย — โดยปกติคือพฤติกรรมที่แอปของคุณมีอยู่ก่อนที่จะมี flag นี้
 </Callout>
 
+## Trade-offs
+
+| ตัวเลือก | Benefit | Cost |
+|---|---|---|
+| Default value แบบปลอดภัย (safe fallback) | แอปไม่พังแม้ SDK ล้มเหลว | feature อาจดูด้อยกว่าที่ตั้งใจตอน fallback |
+| Default ตาม experience ใหม่ | ตรงกับที่ตั้งใจมากกว่า | เสี่ยงถ้า SDK ล้มเหลวและต้องพึ่ง default นี้ |
+
+## Common Mistakes
+
+- ตั้ง default value เป็น "เปิด" ฟีเจอร์ที่เสี่ยงไว้ (ควรเป็น safe fallback เสมอ)
+- ไม่ทดสอบว่าแอปทำงานถูกต้องเมื่อ SDK connect ไม่ได้และต้องพึ่ง default
+- ลืมว่า default value ต่างจาก "ค่าที่ set ไว้ใน UI"
+
+> 💡 Real World Example
+>
+> Facebook ออกแบบระบบ feature flag ให้ default เป็น "safe" เสมอเมื่อ config service ล่ม เพื่อไม่ให้แอป crash ทั้งระบบ
+
 export const quizDefaultValues = [
   {
     q: 'SDK คืนค่าอะไรเมื่อ Feature มีอยู่ใน GrowthBook แต่ไม่มี override rule ตรงเงื่อนไข?',

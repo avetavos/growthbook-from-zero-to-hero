@@ -71,6 +71,23 @@ async function handleRequest(req, res) {
   บน server ต้องสร้าง GrowthBook instance ใหม่ (หรือ clone) ต่อ request เสมอ การแชร์ instance เดียวที่มี mutable attributes ทำให้ concurrent requests เขียนทับ user context ของกัน
 </Callout>
 
+## Trade-offs
+
+| ตัวเลือก | Benefit | Cost |
+|---|---|---|
+| Server-side SDK | ปลอดภัยกว่า ควบคุม logic backend ได้เต็มที่ | ต้องจัดการ caching/refresh เองเพื่อไม่ query ทุก request |
+| เรียก API ตรงทุก request | ง่ายต่อการเข้าใจ | latency สูงและ load เพิ่มต่อ backend service ของ GrowthBook |
+
+## Common Mistakes
+
+- สร้าง GrowthBook instance ใหม่ทุก request แทนแชร์ instance เดียว (สิ้นเปลือง)
+- ไม่ cache feature payload ทำให้ทุก request ยิง network call ไปที่ CDN
+- ลืม refresh payload เมื่อ flag เปลี่ยนใน UI
+
+> 💡 Real World Example
+>
+> backend service ขนาดใหญ่มักแชร์ GrowthBook client instance เดียวต่อ process พร้อม background refresh เพื่อลด latency ต่อ request ให้เหลือใกล้ศูนย์
+
 export const quizNodeSdk = [
   {
     q: 'ทำไมต้องสร้าง GrowthBook instance ใหม่ต่อ request บน server?',

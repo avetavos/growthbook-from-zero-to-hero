@@ -90,6 +90,23 @@ WHERE
 Fact Table metrics ถูกกำหนดครั้งเดียวและสามารถแนบกับ experiment ใดก็ได้ในฐานะ goal หรือ guardrail metric คุณไม่ต้องเขียน SQL เดิมซ้ำทุก experiment นอกจากนี้ยังทำให้ metric definitions ตรวจสอบได้และจัดการ version ได้ถ้า export ผ่าน GrowthBook API
 </Callout>
 
+## Trade-offs
+
+| ตัวเลือก | Benefit | Cost |
+|---|---|---|
+| Goal metric ที่เจาะจงมาก | วัดผลชัดเจนตรงประเด็น | อาจพลาด side effect ที่ metric อื่นจับได้ |
+| Metric ที่กว้างครอบคลุม | ครอบคลุมผลกระทบกว้างกว่า | ตีความยากว่าอะไรขับเคลื่อนผล |
+
+## Common Mistakes
+
+- นิยาม metric ที่ไม่ตรงกับ business goal จริง (วัด vanity metric แทน conversion จริง)
+- ไม่ตั้ง guardrail metric ทำให้พลาดผลข้างเคียงที่แย่ (เช่น page load ช้าลง)
+- เปลี่ยนนิยาม metric กลาง experiment ทำให้เปรียบเทียบผลก่อน-หลังไม่ได้
+
+> 💡 Real World Example
+>
+> ทีม data ที่ Booking.com ตั้ง guardrail metric (เช่น error rate, latency) คู่กับทุก goal metric เสมอ เพื่อจับผลข้างเคียงที่ไม่คาดคิด
+
 export const quizDefiningMetrics = [
   {
     q: 'Fact Table ใน GrowthBook มีจุดประสงค์อะไร?',

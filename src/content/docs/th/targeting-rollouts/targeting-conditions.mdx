@@ -84,6 +84,23 @@ console.log('beta-feature:', isBetaEnabled);`;
 รวมหลาย condition บน rule เดียวเพื่อจำกัด audience ให้แม่นยำ เช่น พนักงานในประเทศไทยที่ใช้ plan pro ผู้ใช้ที่ไม่ match ทุก condition จะข้าม rule นั้นและตกไปยัง rule ถัดไป
 </Callout>
 
+## Trade-offs
+
+| ตัวเลือก | Benefit | Cost |
+|---|---|---|
+| Targeting condition ซับซ้อน | แม่นยำกว่ามาก | debug ยากกว่าเมื่อผลลัพธ์ไม่ตรงคาด |
+| Condition เรียบง่าย | debug ง่ายกว่า | หยาบกว่า ครอบคลุม use case น้อยกว่า |
+
+## Common Mistakes
+
+- เขียน condition ที่ขัดแย้งกันเอง (เช่น country = TH AND country = US) ทำให้ไม่มี user คนไหน match เลย
+- ซ้อน condition หลายชั้นจนไม่มีใครในทีมอ่านเข้าใจ
+- ไม่เทสต์ condition กับ user จริงก่อนปล่อยใช้งาน
+
+> 💡 Real World Example
+>
+> ทีม growth ที่ Booking.com ใช้ targeting condition ผสมกันหลายชั้น (country + device + subscription tier) เพื่อปล่อย feature เฉพาะ segment ที่มีโอกาสได้ผลดีที่สุดก่อน
+
 export const quizTargetingConditions = [
   {
     q: 'rule หนึ่งมีสอง condition: `country equals TH` และ `plan equals pro` ผู้ใช้คนหนึ่งมี `country: TH` และ `plan: free` rule นี้ match หรือไม่?',

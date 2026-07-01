@@ -63,6 +63,23 @@ if (result.inExperiment) {
 `gb.run()` ให้คุณนิยาม experiment โดยตรงในโค้ด เมื่อคุณไม่ต้องการใช้ feature rule
 </Callout>
 
+## Trade-offs
+
+| ตัวเลือก | Benefit | Cost |
+|---|---|---|
+| Feature-flag experiment | เชื่อม logic เข้ากับโค้ดที่มีอยู่ ยืดหยุ่นกว่า | ต้องแก้โค้ดเพื่อเชื่อม experiment |
+| Visual editor experiment | ไม่ต้องแก้โค้ด | จำกัดกับการเปลี่ยน UI เท่านั้น |
+
+## Common Mistakes
+
+- เรียก `getFeatureValue` โดยไม่ระบุ stable user attribute ทำให้ assignment ไม่เสถียรข้าม session
+- ไม่ track exposure event ทำให้ analysis ไม่มีข้อมูล
+- mix การ implement หลาย SDK version ในโค้ดเดียวกันทำให้ behavior ไม่ตรงกัน
+
+> 💡 Real World Example
+>
+> ทีม engineering ที่ Spotify เชื่อม experiment เข้ากับ feature flag ที่มีอยู่แล้วเสมอ แทนสร้าง experiment แยกต่างหาก เพื่อลด code path ที่ต้อง maintain
+
 export const quizSdkExperiments = [
   {
     q: 'gb.run() คืนค่าอะไร?',

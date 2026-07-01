@@ -73,6 +73,23 @@ GrowthBook จะแทนที่ `{{ startDate }}` และ `{{ endDate }}` 
 Experiment assignment query บอก GrowthBook ว่าผู้ใช้คนไหนเห็น variation ไหน และเมื่อไหร่ metric ทุกตัวและผล statistical ทั้งหมดมาจาก query นี้ — ถ้ามันผิดหรือไม่ครบถ้วน การวิเคราะห์ทั้งหมดจะผิดด้วย ตรวจสอบด้วย SQL preview โดยตรงก่อน save
 </Callout>
 
+## Trade-offs
+
+| ตัวเลือก | Benefit | Cost |
+|---|---|---|
+| เชื่อม data warehouse ของตัวเอง | data ไม่ต้องออกจาก infrastructure ควบคุมเต็มที่ | ต้องมี warehouse และ ops team ดูแลอยู่แล้ว |
+| ใช้ event tracking ผ่าน third-party | ตั้งค่าเร็วกว่า | data อยู่นอกการควบคุมของทีม |
+
+## Common Mistakes
+
+- เชื่อม data source ที่ schema ไม่ตรงกับที่ GrowthBook คาดหวัง ทำให้ query metric ผิด
+- ไม่ตั้ง permission ที่เหมาะสมให้ GrowthBook query warehouse (query ช้าหรือถูก block)
+- ใช้ sample table แทน full event table ทำให้ผลลัพธ์เพี้ยน
+
+> 💡 Real World Example
+>
+> บริษัทที่ใช้ Snowflake/BigQuery ภายในอยู่แล้วมักเลือก GrowthBook เพราะเชื่อมกับ warehouse เดิมได้ตรง ไม่ต้อง duplicate data ไปที่ระบบใหม่
+
 export const quizDataSources = [
   {
     q: 'GrowthBook ทำอะไรกับข้อมูลใน warehouse ของคุณ?',

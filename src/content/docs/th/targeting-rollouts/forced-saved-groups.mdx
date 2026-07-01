@@ -75,6 +75,23 @@ prerequisite (หรือที่เรียกว่า feature dependency) 
 นิยาม `beta-testers` ครั้งเดียว แล้วอ้างอิงในทุก feature ที่ควร rollout ให้ผู้ใช้ beta ก่อน การอัปเดตสมาชิกของกลุ่มในที่เดียวจะอัปเดตทุก rule ที่ใช้มัน
 </Callout>
 
+## Trade-offs
+
+| ตัวเลือก | Benefit | Cost |
+|---|---|---|
+| Saved Group | reuse ได้หลาย feature/experiment | ต้อง maintain group ให้ update ตรงกับ business logic จริง |
+| Forced assignment เฉพาะจุด | เร็วกว่าสำหรับ QA/debug ชั่วคราว | ไม่ reuse ได้ ต้องไม่ลืมลบออก |
+
+## Common Mistakes
+
+- ใช้ forced assignment ทิ้งไว้ใน production นานเกินจำเป็น (ควรใช้ QA/debug ชั่วคราวเท่านั้น)
+- สร้าง saved group ซ้ำหลายอันสำหรับ segment เดียวกัน
+- ลืม remove ตัวเองจาก forced group หลัง QA เสร็จทำให้เห็นข้อมูลเพี้ยน
+
+> 💡 Real World Example
+>
+> ทีม QA ที่ Spotify ใช้ forced assignment เพื่อ preview feature ใหม่ก่อนเปิดจริง โดยไม่กระทบ traffic assignment ของผู้ใช้จริง
+
 export const quizForcedSavedGroups = [
   {
     q: 'rule แบบ forced-value ทำอะไร?',
