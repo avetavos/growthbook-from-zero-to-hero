@@ -80,13 +80,13 @@ async function handleRequest(req, res) {
 
 ## Common Mistakes
 
-- สร้าง GrowthBook instance ใหม่ทุก request แทนแชร์ instance เดียว (สิ้นเปลือง)
+- re-fetch feature payload ใหม่ทุก request แทนที่จะดึงครั้งเดียวแล้ว reuse — การสร้าง instance ใหม่ต่อ request นั้นเบาและเป็นแนวทางที่แนะนำ ตัวที่สิ้นเปลืองคือ network fetch ของ payload ต่างหาก
 - ไม่ cache feature payload ทำให้ทุก request ยิง network call ไปที่ CDN
 - ลืม refresh payload เมื่อ flag เปลี่ยนใน UI
 
 > 💡 Real World Example
 >
-> backend service ขนาดใหญ่มักแชร์ GrowthBook client instance เดียวต่อ process พร้อม background refresh เพื่อลด latency ต่อ request ให้เหลือใกล้ศูนย์
+> backend service ขนาดใหญ่มัก fetch feature payload ครั้งเดียวต่อ process แล้ว background refresh เก็บไว้ใน memory จากนั้นสร้าง instance ใหม่แบบเบา ๆ ต่อ request โดย reuse payload ที่ cache ไว้ — ได้ทั้ง targeting ที่แยกต่อ request และ latency ที่ใกล้ศูนย์เพราะไม่ต้อง re-fetch
 
 export const quizNodeSdk = [
   {
