@@ -11,7 +11,7 @@ import ProgressTracker from '../../../../components/ProgressTracker.tsx';
 
 ## จาก playground สู่ production
 
-การรัน GrowthBook บนเครื่องตัวเองนั้นทำได้ง่าย แต่การรันใน production — ที่มีผู้ใช้จริง รายได้จริง และ workflow ของทีม engineering ที่ขึ้นอยู่กับมัน — ต้องการมาตรฐานที่สูงกว่านั้นมาก
+การรัน GrowthBook บนเครื่องตัวเองนั้นทำได้ง่าย แต่การรันใน production — ที่มีผู้ใช้จริง รายได้จริง และ workflow ของทีม engineering ที่ต้องพึ่งพาระบบนี้ — ต้องการมาตรฐานที่สูงกว่านั้นมาก
 
 โมดูลนี้ครอบคลุมห้าเสาหลักที่แยก GrowthBook แบบ proof-of-concept ออกจาก production-grade:
 
@@ -26,7 +26,7 @@ import ProgressTracker from '../../../../components/ProgressTracker.tsx';
 
 feature flag ที่ไม่มีใคร review คือความเสี่ยง flag ที่ไม่มีใคร audit มี blast radius ที่ไม่รู้แน่ชัด experiment ที่ไม่มีใคร monitor อาจทำให้ metrics ของคุณเสียหายโดยที่ไม่รู้ตัว
 
-ใน production GrowthBook flags และ experiments สมควรได้รับวินัยเดียวกับโค้ดที่พวกมัน gate:
+ใน production GrowthBook flags และ experiments สมควรได้รับวินัยเดียวกับโค้ดที่ถูก gate ไว้:
 
 - **Review** — การเปลี่ยนแปลง flag ควรผ่านกระบวนการอนุมัติแบบเบา (GrowthBook มี comment thread และ audit log ในตัว)
 - **Audit** — ใช้ built-in audit log (Settings → Audit Log) เพื่อติดตามว่าใครเปลี่ยนอะไรและเมื่อใด
@@ -69,10 +69,10 @@ export const quizAdvancedIndex = [
   {
     q: 'ประโยชน์หลักของการเชื่อม GrowthBook webhooks เข้ากับ CI/CD pipeline คืออะไร?',
     options: [
-      'มันรัน A/B test analysis โดยอัตโนมัติ',
+      'รัน A/B test analysis โดยอัตโนมัติ',
       'ทำให้การเปลี่ยนแปลง flag แพร่กระจายได้โดยไม่ต้องมีคนมาทำเอง',
-      'มันแทนที่ความจำเป็นในการใช้ SDK key',
-      'มัน backup MongoDB ทุกครั้งที่ deploy',
+      'แทนที่ความจำเป็นในการใช้ SDK key',
+      'backup MongoDB ทุกครั้งที่ deploy',
     ],
     answer: 1,
   },

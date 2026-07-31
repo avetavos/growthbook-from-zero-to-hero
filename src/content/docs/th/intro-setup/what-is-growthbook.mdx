@@ -16,7 +16,7 @@ GrowthBook คือแพลตฟอร์ม feature-flagging และ exper
 
 ### 1. Feature Flagging
 
-ควบคุมการมองเห็นฟีเจอร์ได้โดยไม่ต้อง deploy ใหม่ ครอบโค้ดทุกเส้นทางไว้หลัง flag แล้วเปิดหรือปิดมันได้ — แยกตาม environment, แยกตาม audience segment หรือทยอยปล่อยเป็นเปอร์เซ็นต์ — ได้โดยตรงจาก UI ของ GrowthBook
+ควบคุมการมองเห็นฟีเจอร์ได้โดยไม่ต้อง deploy ใหม่ ครอบโค้ดทุกเส้นทางไว้หลัง flag แล้วเปิดหรือปิดได้ — แยกตาม environment, แยกตาม audience segment หรือทยอยปล่อยเป็นเปอร์เซ็นต์ — ได้โดยตรงจาก UI ของ GrowthBook
 
 ### 2. A/B Testing / Experimentation
 
@@ -24,7 +24,7 @@ GrowthBook คือแพลตฟอร์ม feature-flagging และ exper
 
 ### 3. Analytics บน data warehouse ของคุณเอง
 
-GrowthBook เชื่อมต่อโดยตรงกับ warehouse **ของคุณ** — Snowflake, BigQuery, Redshift, ClickHouse และอื่น ๆ มันจะ query event tables ที่คุณมีอยู่แล้วและคำนวณ metrics แบบทันที โดย raw event data ของคุณจะไม่เคยออกจาก infrastructure ของคุณเลย
+GrowthBook เชื่อมต่อโดยตรงกับ warehouse **ของคุณ** — Snowflake, BigQuery, Redshift, ClickHouse และอื่น ๆ จะ query event tables ที่คุณมีอยู่แล้วและคำนวณ metrics แบบทันที โดย raw event data ของคุณจะไม่เคยออกจาก infrastructure ของคุณเลย
 
 ## Self-host เทียบกับ GrowthBook Cloud
 
@@ -80,16 +80,16 @@ console.log(config.theme); // 'dark' if the flag is on, 'light' otherwise`;
 <CopyCode client:visible code={jsonFlagCode} label="Copy JSON flag snippet" />
 
 <Callout title="Key point">
-GrowthBook รัน experiment บน data warehouse ของคุณเอง — มันไม่เคยดึงเข้าหรือเก็บ raw event data ของคุณเลย
+GrowthBook รัน experiment บน data warehouse ของคุณเอง — ไม่เคยดึงเข้าหรือเก็บ raw event data ของคุณเลย
 </Callout>
 
-## Common Mistakes
+## ข้อผิดพลาดที่พบบ่อย
 
 - มองว่า GrowthBook เป็นแค่ "ตัวเปิดปิด feature" โดยไม่ใช้ส่วน experimentation/analytics เลย
 - เลือก self-host โดยไม่มีทีม ops ดูแล ทำให้ downtime บ่อย
 - ไม่เชื่อม data warehouse จริงทำให้ analytics ไม่มีข้อมูลให้วิเคราะห์
 
-> 💡 Real World Example
+> 💡 ตัวอย่างจากของจริง
 >
 > Netflix ใช้ระบบ feature flagging และ experimentation ภายในที่แนวคิดคล้ายกันเพื่อทดสอบ UI กับผู้ใช้หลายสิบล้านคนพร้อมกัน; Booking.com รันหลักพัน experiment พร้อมกันตลอดเวลาด้วยแนวคิดเดียวกับที่ GrowthBook ใช้
 

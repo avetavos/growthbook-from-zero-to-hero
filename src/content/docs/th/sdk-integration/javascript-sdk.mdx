@@ -89,20 +89,20 @@ console.log('Theme:', theme);`;
 เรียก `setAttributes` ก่อน `isOn` หรือ `getFeatureValue` เสมอ เพื่อให้ targeting rules มี user context ที่ต้องการ
 </Callout>
 
-## Trade-offs
+## ข้อแลกเปลี่ยน
 
 | ตัวเลือก | Benefit | Cost |
 |---|---|---|
 | Client-side SDK | real-time, personalize ตาม browser ได้ทันที | user เห็น flag values ผ่าน dev tools ได้ ไม่ควรใช้กับ business-critical secret |
 | Server-side rendering ของ flag | ซ่อน logic จาก client ได้ | ต้องเพิ่ม server round-trip ก่อนแสดงผล |
 
-## Common Mistakes
+## ข้อผิดพลาดที่พบบ่อย
 
 - ไม่ set timeout ให้ `init()` ทำให้ UI ค้างรอ
 - ไม่ handle กรณี SDK โหลดไม่ทัน (เกิด content flicker)
 - ลืมเรียก cleanup ตอน component/page unmount ทำให้ memory leak
 
-> 💡 Real World Example
+> 💡 ตัวอย่างจากของจริง
 >
 > เว็บ e-commerce จำนวนมากใช้ client-side SDK แบบนี้เพื่อทดสอบ UI เช่นปุ่ม checkout แบบ real-time โดยไม่ต้องรอ deploy ใหม่
 

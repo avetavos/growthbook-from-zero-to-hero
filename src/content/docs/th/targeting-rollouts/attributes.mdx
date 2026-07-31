@@ -14,7 +14,7 @@ import ProgressTracker from '../../../../components/ProgressTracker.tsx';
 
 Targeting attribute คือคู่ key-value ที่อธิบายผู้ใช้หรือ session คนปัจจุบัน เช่น `id`, `email`, `country`, หรือ `plan` เมื่อ SDK ประเมิน flag GrowthBook จะเปรียบเทียบ attribute ของผู้ใช้คนปัจจุบันกับ condition บนแต่ละ rule เพื่อตัดสินว่า rule ใด (ถ้ามี) จะถูกนำมาใช้
 
-attribute ถูกกำหนดโดยคุณทั้งหมด GrowthBook ไม่มีโมเดลผู้ใช้ในตัว คุณเป็นคนบอกว่าจะให้มันรู้อะไรเกี่ยวกับผู้ใช้แต่ละคนผ่านการเรียก `setAttributes`
+attribute ถูกกำหนดโดยคุณทั้งหมด GrowthBook ไม่มีโมเดลผู้ใช้ในตัว คุณเป็นคนบอกว่าจะให้ GrowthBook รู้อะไรเกี่ยวกับผู้ใช้แต่ละคนผ่านการเรียก `setAttributes`
 
 ### ขั้นตอนที่ 1 — กำหนด attribute ใน GrowthBook
 
@@ -73,26 +73,26 @@ gb.setAttributes({
 
 **Identifier attribute** (เช่น `id` หรือ `deviceId`) ถูกใช้เป็น hash key เมื่อแบ่ง bucket ผู้ใช้ใน percentage rollout และ A/B test การติ๊กกล่อง Identifier ใน Settings เป็นการบอก GrowthBook ว่า attribute นี้สามารถใช้แบ่ง bucket ได้อย่างเสถียรและเป็นแบบ deterministic ผู้ใช้คนเดิมจะตกลงใน bucket เดิมเสมอ
 
-**attribute ที่ไม่ใช่ identifier** (เช่น `country` หรือ `plan`) ถูกใช้สำหรับการ match targeting condition เท่านั้น มันกรองว่า rule จะใช้กับผู้ใช้คนไหน แต่ไม่ได้ถูกใช้เพื่อกำหนดผู้ใช้ให้กับ variant ของ experiment
+**attribute ที่ไม่ใช่ identifier** (เช่น `country` หรือ `plan`) ถูกใช้สำหรับการ match targeting condition เท่านั้น ใช้กรองว่า rule จะมีผลกับผู้ใช้คนไหน แต่ไม่ได้ถูกใช้เพื่อกำหนดผู้ใช้ให้กับ variant ของ experiment
 
 <Callout title="Targeting only works on attributes you set">
 หากโค้ดของคุณไม่เคยเรียก `setAttributes` พร้อม `country` rule ใด ๆ ที่เจาะกลุ่มด้วย `country` จะไม่มีวัน match ควรรักษา attribute ใน SDK ให้ตรงกับสิ่งที่คุณกำหนดไว้ใน Settings → Attributes เสมอ
 </Callout>
 
-## Trade-offs
+## ข้อแลกเปลี่ยน
 
 | ตัวเลือก | Benefit | Cost |
 |---|---|---|
 | ส่ง attribute ละเอียด | targeting แม่นยำกว่ามาก | เสี่ยง privacy/PII ถ้าส่งข้อมูลที่ไม่จำเป็น |
 | ส่ง attribute น้อย เฉพาะที่จำเป็น | ปลอดภัยกว่า | targeting หยาบกว่า |
 
-## Common Mistakes
+## ข้อผิดพลาดที่พบบ่อย
 
 - ส่ง PII (เช่น email เต็ม) เป็น attribute โดยไม่จำเป็น
 - ใช้ attribute ที่เปลี่ยนบ่อย (เช่น timestamp) เป็น targeting key ทำให้ assignment ไม่เสถียร
 - ไม่ sync attribute schema ระหว่าง SDK กับที่ตั้งไว้ใน GrowthBook UI
 
-> 💡 Real World Example
+> 💡 ตัวอย่างจากของจริง
 >
 > แอป fintech อย่าง Booking.com ส่งเฉพาะ attribute ที่จำเป็นต่อ targeting (เช่น country, plan tier) แทนข้อมูลส่วนตัวเพื่อลดความเสี่ยงด้าน privacy
 

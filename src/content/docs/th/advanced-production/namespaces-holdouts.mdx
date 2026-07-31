@@ -81,20 +81,20 @@ console.log('Variation:', result.value);`;
 Namespaces ป้องกันไม่ให้ experiment ที่ซ้อนทับกันปนเปื้อนกัน — กำหนด experiment พร้อมกันที่ share user journey เดียวกันให้อยู่ใน namespace เดียวกันเสมอ พร้อมกับ range ที่ไม่ซ้อนทับกัน
 </Callout>
 
-## Trade-offs
+## ข้อแลกเปลี่ยน
 
 | ตัวเลือก | Benefit | Cost |
 |---|---|---|
 | ใช้ Namespace แยก experiment | ป้องกัน user เจอหลาย experiment ที่ conflict กัน | ลด traffic ที่ใช้ได้ต่อ experiment |
 | ไม่ใช้ Namespace | ได้ traffic เต็มต่อ experiment | เสี่ยง experiment ปนกันโดยไม่รู้ตัว |
 
-## Common Mistakes
+## ข้อผิดพลาดที่พบบ่อย
 
 - รัน experiment ที่แก้ layout เดียวกันในสอง experiment คนละ namespace โดยไม่ตั้งใจ ทำให้ผลปนกัน
 - ไม่ตั้ง holdout group ทำให้วัด long-term impact ของ feature ทั้งหมดไม่ได้
 - ลืมว่า namespace แบ่ง traffic แบบ fixed — เปลี่ยนกลาง experiment ทำให้ sample เพี้ยน
 
-> 💡 Real World Example
+> 💡 ตัวอย่างจากของจริง
 >
 > Facebook ใช้ namespace/layer system ที่แนวคิดคล้ายกันเพื่อรันหลายพัน experiment พร้อมกันโดยไม่ให้ผลกระทบกัน
 
@@ -132,7 +132,7 @@ export const quizNamespacesHoldouts = [
   {
     q: 'experiment ใน namespace ต่างกันมีผลต่อกันหรือไม่?',
     options: [
-      'ใช่ พวกมัน share bucketing pool เดียวกัน',
+      'ใช่ ทั้งคู่ share bucketing pool เดียวกัน',
       'ไม่ namespace ต่างกันคือ pool อิสระ',
       'เฉพาะเมื่อมี traffic range เดียวกัน',
       'เฉพาะใน production environment',

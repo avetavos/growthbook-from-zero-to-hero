@@ -34,10 +34,10 @@ export const pipelineDiagram = `flowchart TD
 
 <Mermaid code={pipelineDiagram} title="How GrowthBook fits in your stack" />
 
-GrowthBook ไม่เคย ingest raw events โดยตรง มันเชื่อมต่อกับ warehouse ของคุณด้วย read-only credentials และรัน SQL queries เมื่อคุณกด **Update Data** ใน UI หรือตั้งเวลา refresh
+GrowthBook ไม่เคย ingest raw events โดยตรง แต่เชื่อมต่อกับ warehouse ของคุณด้วย read-only credentials และรัน SQL queries เมื่อคุณกด **Update Data** ใน UI หรือตั้งเวลา refresh
 
 <Callout title="Bring your own data">
-GrowthBook เป็น platform แบบ "bring your own data" — มัน query warehouse ของคุณโดยตรง raw events และข้อมูลผู้ใช้ไม่เคยออกจาก infrastructure ของคุณ คุณยังคงเป็นเจ้าของและควบคุมข้อมูลได้อย่างเต็มที่
+GrowthBook เป็น platform แบบ "bring your own data" — GrowthBook query warehouse ของคุณโดยตรง raw events และข้อมูลผู้ใช้ไม่เคยออกจาก infrastructure ของคุณ คุณยังคงเป็นเจ้าของและควบคุมข้อมูลได้อย่างเต็มที่
 </Callout>
 
 ## สิ่งที่ module นี้ครอบคลุม
@@ -63,10 +63,10 @@ export const quizMetricsIndex = [
   {
     q: 'experiment assignment query มีหน้าที่อะไร?',
     options: [
-      'มันเพิ่มผู้ใช้ใหม่เข้าสู่ experiment',
-      'มันบอก GrowthBook ว่าผู้ใช้คนไหนเห็น variation ไหน และเมื่อไหร่',
-      'มันกำหนดว่า metrics ใดที่ต้องติดตาม',
-      'มัน deploy feature flag ไปยัง production',
+      'เพิ่มผู้ใช้ใหม่เข้าสู่ experiment',
+      'บอก GrowthBook ว่าผู้ใช้คนไหนเห็น variation ไหน และเมื่อไหร่',
+      'กำหนดว่า metrics ใดที่ต้องติดตาม',
+      'deploy feature flag ไปยัง production',
     ],
     answer: 1,
   },

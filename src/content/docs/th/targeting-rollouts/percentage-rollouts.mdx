@@ -46,7 +46,7 @@ if (gb.isOn('new-dashboard')) {
 <CopyCode client:visible code={rolloutCode} label="Copy rollout snippet" />
 
 <Callout title="Percentage rollouts hash the user id for stable bucketing">
-การเพิ่ม coverage จาก 10% เป็น 50% จะเพิ่มผู้ใช้ใหม่เข้ามาใน rollout เท่านั้น ไม่ได้กำหนด bucket ของผู้ใช้เดิมใหม่ ผู้ใช้ที่เห็น feature ใหม่ตอน 10% จะยังคงเห็นมันต่อไปที่ 50% และ 100%
+การเพิ่ม coverage จาก 10% เป็น 50% จะเพิ่มผู้ใช้ใหม่เข้ามาใน rollout เท่านั้น ไม่ได้กำหนด bucket ของผู้ใช้เดิมใหม่ ผู้ใช้ที่เห็น feature ใหม่ตอน 10% จะยังคงเห็นต่อไปที่ 50% และ 100%
 </Callout>
 
 ## Rollout Strategy Comparison
@@ -58,20 +58,20 @@ if (gb.isOn('new-dashboard')) {
 | Progressive Rollout | ต่ำ | ช้า |
 | Feature Flag | ต่ำมาก | ปรับได้ตามต้องการ |
 
-## Trade-offs
+## ข้อแลกเปลี่ยน
 
 | ตัวเลือก | Benefit | Cost |
 |---|---|---|
 | Rollout แบบช้า (ทยอย %) | ปลอดภัยกว่า ตรวจจับปัญหาได้ก่อนกระทบคนมาก | ใช้เวลานานกว่าจะถึง 100% |
 | Rollout เร็ว | เห็นผลลัพธ์ในมือเร็วกว่า | เสี่ยง blast radius ใหญ่ถ้าพัง |
 
-## Common Mistakes
+## ข้อผิดพลาดที่พบบ่อย
 
 - rollout ไป 100% ทันทีโดยไม่ผ่านขั้น percentage เล็กๆก่อน
 - ไม่ monitor metric ระหว่าง rollout แต่ละขั้น
 - เพิ่ม percentage เร็วเกินไปโดยไม่รอดูผลขั้นก่อนหน้าให้นานพอ
 
-> 💡 Real World Example
+> 💡 ตัวอย่างจากของจริง
 >
 > Netflix และ Facebook ใช้ progressive rollout (1% → 5% → 25% → 100%) เป็นมาตรฐานสำหรับทุก feature ใหญ่ เพื่อจำกัดความเสียหายถ้าเกิดบัค
 
@@ -80,7 +80,7 @@ export const quizPercentageRollouts = [
     q: 'hash attribute ถูกใช้เพื่ออะไรใน percentage rollout?',
     options: [
       'กำหนดจำนวนผู้ใช้สูงสุดที่อนุญาตให้อยู่ใน rollout',
-      'ค่าของมันถูก hash รวมกับ feature key เพื่อตัดสินว่าผู้ใช้ตกลงใน bucket ไหน',
+      'ค่าของตัวเองถูก hash รวมกับ feature key เพื่อตัดสินว่าผู้ใช้ตกลงใน bucket ไหน',
       'นิยาม targeting condition ของ rollout rule',
       'ควบคุมจังหวะเวลาของตารางการ ramp',
     ],

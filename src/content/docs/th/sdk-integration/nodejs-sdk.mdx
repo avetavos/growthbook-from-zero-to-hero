@@ -10,7 +10,7 @@ import Callout from '../../../../components/Callout.astro';
 import Quiz from '../../../../components/Quiz.tsx';
 import ProgressTracker from '../../../../components/ProgressTracker.tsx';
 
-ใช้ `@growthbook/growthbook` package เดียวกันที่รันในเบราว์เซอร์ได้เลยใน Node.js ไม่ต้องติดตั้ง server SDK แยกต่างหาก ความแตกต่างหลักอยู่ที่ lifecycle model: บน server การประเมิน flag เกิดขึ้นภายใน request handlers แทนที่จะเป็นครั้งเดียวตอน app startup
+ใช้ `@growthbook/growthbook` package เดียวกันที่รันใน browser ได้เลยใน Node.js ไม่ต้องติดตั้ง server SDK แยกต่างหาก ความแตกต่างหลักอยู่ที่ lifecycle model: บน server การประเมิน flag เกิดขึ้นภายใน request handlers แทนที่จะเป็นครั้งเดียวตอน app startup
 
 ## การประเมิน flag ฝั่ง Server
 
@@ -71,20 +71,20 @@ async function handleRequest(req, res) {
   บน server ต้องสร้าง GrowthBook instance ใหม่ (หรือ clone) ต่อ request เสมอ การแชร์ instance เดียวที่มี mutable attributes ทำให้ concurrent requests เขียนทับ user context ของกัน
 </Callout>
 
-## Trade-offs
+## ข้อแลกเปลี่ยน
 
 | ตัวเลือก | Benefit | Cost |
 |---|---|---|
 | Server-side SDK | ปลอดภัยกว่า ควบคุม logic backend ได้เต็มที่ | ต้องจัดการ caching/refresh เองเพื่อไม่ query ทุก request |
 | เรียก API ตรงทุก request | ง่ายต่อการเข้าใจ | latency สูงและ load เพิ่มต่อ backend service ของ GrowthBook |
 
-## Common Mistakes
+## ข้อผิดพลาดที่พบบ่อย
 
 - re-fetch feature payload ใหม่ทุก request แทนที่จะดึงครั้งเดียวแล้ว reuse — การสร้าง instance ใหม่ต่อ request นั้นเบาและเป็นแนวทางที่แนะนำ ตัวที่สิ้นเปลืองคือ network fetch ของ payload ต่างหาก
 - ไม่ cache feature payload ทำให้ทุก request ยิง network call ไปที่ CDN
 - ลืม refresh payload เมื่อ flag เปลี่ยนใน UI
 
-> 💡 Real World Example
+> 💡 ตัวอย่างจากของจริง
 >
 > backend service ขนาดใหญ่มัก fetch feature payload ครั้งเดียวต่อ process แล้ว background refresh เก็บไว้ใน memory จากนั้นสร้าง instance ใหม่แบบเบา ๆ ต่อ request โดย reuse payload ที่ cache ไว้ — ได้ทั้ง targeting ที่แยกต่อ request และ latency ที่ใกล้ศูนย์เพราะไม่ต้อง re-fetch
 

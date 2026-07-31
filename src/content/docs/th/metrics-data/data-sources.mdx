@@ -33,7 +33,7 @@ Data Source คือการเชื่อมต่อแบบ read-only จ
 
 ### ขั้นตอนที่ 3 — เขียน experiment assignment query
 
-Assignment query เป็น query ที่สำคัญที่สุดใน GrowthBook มันตอบคำถามที่ว่า: _"ผู้ใช้คนไหนเห็น experiment variation ไหน และเมื่อไหร่?"_
+Assignment query เป็น query ที่สำคัญที่สุดใน GrowthBook เพราะเป็นตัวตอบคำถามที่ว่า: _"ผู้ใช้คนไหนเห็น experiment variation ไหน และเมื่อไหร่?"_
 
 Assignment query ปกติเลือก 4 columns:
 
@@ -70,23 +70,23 @@ GrowthBook จะแทนที่ `{{ startDate }}` และ `{{ endDate }}` 
 ถ้าคุณเพิ่งเริ่มต้นและยังไม่มี data warehouse GrowthBook สามารถทำงานได้โดยไม่ต้องมี warehouse สำหรับ feature flags และ targeting พื้นฐาน คุณเพิ่ม data source ได้ภายหลังเมื่อพร้อมรัน statistical experiments GrowthBook ยังรองรับการ upload CSV data สำหรับการทดลองแบบเบาๆ ด้วย
 
 <Callout title="Assignment query คือรากฐานของทุกอย่าง">
-Experiment assignment query บอก GrowthBook ว่าผู้ใช้คนไหนเห็น variation ไหน และเมื่อไหร่ metric ทุกตัวและผล statistical ทั้งหมดมาจาก query นี้ — ถ้ามันผิดหรือไม่ครบถ้วน การวิเคราะห์ทั้งหมดจะผิดด้วย ตรวจสอบด้วย SQL preview โดยตรงก่อน save
+Experiment assignment query บอก GrowthBook ว่าผู้ใช้คนไหนเห็น variation ไหน และเมื่อไหร่ metric ทุกตัวและผล statistical ทั้งหมดมาจาก query นี้ — ถ้า query ผิดหรือไม่ครบถ้วน การวิเคราะห์ทั้งหมดจะผิดด้วย ตรวจสอบด้วย SQL preview โดยตรงก่อน save
 </Callout>
 
-## Trade-offs
+## ข้อแลกเปลี่ยน
 
 | ตัวเลือก | Benefit | Cost |
 |---|---|---|
 | เชื่อม data warehouse ของตัวเอง | data ไม่ต้องออกจาก infrastructure ควบคุมเต็มที่ | ต้องมี warehouse และ ops team ดูแลอยู่แล้ว |
 | ใช้ event tracking ผ่าน third-party | ตั้งค่าเร็วกว่า | data อยู่นอกการควบคุมของทีม |
 
-## Common Mistakes
+## ข้อผิดพลาดที่พบบ่อย
 
 - เชื่อม data source ที่ schema ไม่ตรงกับที่ GrowthBook คาดหวัง ทำให้ query metric ผิด
 - ไม่ตั้ง permission ที่เหมาะสมให้ GrowthBook query warehouse (query ช้าหรือถูก block)
 - ใช้ sample table แทน full event table ทำให้ผลลัพธ์เพี้ยน
 
-> 💡 Real World Example
+> 💡 ตัวอย่างจากของจริง
 >
 > บริษัทที่ใช้ Snowflake/BigQuery ภายในอยู่แล้วมักเลือก GrowthBook เพราะเชื่อมกับ warehouse เดิมได้ตรง ไม่ต้อง duplicate data ไปที่ระบบใหม่
 

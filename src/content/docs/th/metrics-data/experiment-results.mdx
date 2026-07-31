@@ -64,23 +64,23 @@ GrowthBook สามารถแบ่ง results ตาม **dimension** — at
 Dimensions มีประโยชน์สำหรับตรวจสอบ heterogeneous treatment effects — เช่น checkout ใหม่อาจช่วย mobile users แต่ส่งผลเสียต่อ desktop users
 
 <Callout title="รอ sample size เพียงพอก่อนเชื่อผล">
-การดูผลก่อนกำหนดและตัดสินใจเมื่อ sample size ยังน้อยเรียกว่า "peeking" — มันทำให้ false positive rate เพิ่มขึ้นอย่างมาก ให้ experiment รันถึง sample size หรือระยะเวลาที่วางแผนไว้ก่อนสรุปผล ใช้ sequential testing option ของ GrowthBook ถ้าต้องการดูผลระหว่างทางอย่างปลอดภัย
+การดูผลก่อนกำหนดและตัดสินใจเมื่อ sample size ยังน้อยเรียกว่า "peeking" — ทำให้ false positive rate เพิ่มขึ้นอย่างมาก ให้ experiment รันถึง sample size หรือระยะเวลาที่วางแผนไว้ก่อนสรุปผล ใช้ sequential testing option ของ GrowthBook ถ้าต้องการดูผลระหว่างทางอย่างปลอดภัย
 </Callout>
 
-## Trade-offs
+## ข้อแลกเปลี่ยน
 
 | ตัวเลือก | Benefit | Cost |
 |---|---|---|
 | รอผลจนครบ sample size ที่วางแผน | มั่นใจกว่าทางสถิติ | ใช้เวลานานกว่าจะได้ตัดสินใจ |
 | ดูผลกลางทางแล้วตัดสินใจเร็ว | เร็วกว่า | เสี่ยง false positive ถ้าไม่ใช้ sequential testing |
 
-## Common Mistakes
+## ข้อผิดพลาดที่พบบ่อย
 
 - หยุด experiment ทันทีที่เห็น "ชนะ" โดยไม่รอ statistical significance
 - มองแค่ metric เดียวโดยไม่เช็ค guardrail metrics
 - ตีความ "ไม่ significant" ว่า "ไม่มีผล" ทั้งที่อาจแค่ sample size ไม่พอ
 
-> 💡 Real World Example
+> 💡 ตัวอย่างจากของจริง
 >
 > ทีม growth ที่ Spotify มีกฎห้าม ship ผล experiment ที่ยังไม่ถึง statistical significance ไม่ว่าผลจะดูดีแค่ไหนก็ตาม
 
@@ -108,10 +108,10 @@ export const quizExperimentResults = [
   {
     q: 'guardrail metric มีจุดประสงค์อะไร?',
     options: [
-      'มันคือ primary goal ที่ experiment กำลัง optimize',
-      'มันคือ metric ที่ต้องไม่ถดถอย — มัน flag การถดถอยแม้ goal metrics จะดูดี',
-      'มันควบคุม traffic split ระหว่าง variations',
-      'มันตั้งระยะเวลา experiment ขั้นต่ำ',
+      'เป็น primary goal ที่ experiment กำลัง optimize',
+      'เป็น metric ที่ต้องไม่ถดถอย — คอย flag การถดถอยแม้ goal metrics จะดูดี',
+      'ควบคุม traffic split ระหว่าง variations',
+      'ตั้งระยะเวลา experiment ขั้นต่ำ',
     ],
     answer: 1,
   },

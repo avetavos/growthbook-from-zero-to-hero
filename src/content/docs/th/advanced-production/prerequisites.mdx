@@ -26,7 +26,7 @@ import ProgressTracker from '../../../../components/ProgressTracker.tsx';
 prerequisites มีประโยชน์สูงสุดเมื่อ:
 
 - **Staged rollout chains** — flag ระดับ surface ขึ้นอยู่กับ infrastructure flag ที่ rollout เต็มที่แล้ว
-- **Kill switches พร้อม dependencies** — การปิด `new-payment-provider` ควรปิดทุกอย่างที่ depend บนมันโดยอัตโนมัติ โดยไม่ต้อง deploy ใหม่
+- **Kill switches พร้อม dependencies** — การปิด `new-payment-provider` ควรปิดทุกอย่างที่ depend อยู่โดยอัตโนมัติ โดยไม่ต้อง deploy ใหม่
 - **Beta gate stacking** — ฟีเจอร์เข้าถึงได้เฉพาะเมื่อ user อยู่ใน `beta` cohort ทั่วไป AND อยู่ใน sub-experiment เฉพาะ
 
 ## การสร้าง prerequisite ใน GrowthBook UI
@@ -57,7 +57,7 @@ new-payment-provider  (infrastructure flag)
   express-checkout    (premium surface flag)
 ```
 
-การปิด `new-payment-provider` จะ cascade — ทั้ง `checkout-v2` และ `express-checkout` ดับอัตโนมัติ แม้ว่า rules ของพวกมันจะบอกว่า ON ทำให้คุณมี kill switch เดียวสำหรับทั้ง chain
+การปิด `new-payment-provider` จะ cascade — ทั้ง `checkout-v2` และ `express-checkout` ดับอัตโนมัติ แม้ว่า rule ของทั้งคู่จะบอกว่า ON ทำให้คุณมี kill switch เดียวสำหรับทั้ง chain
 
 export const prereqCode = `import { GrowthBook } from '@growthbook/growthbook';
 
@@ -86,20 +86,20 @@ console.log({ paymentOn, checkoutOn, expressOn });`;
 Prerequisites ทำให้ flag ขึ้นอยู่กับ flag อื่น — มีประโยชน์สำหรับ staged dependencies ที่การปิด parent flag ควรปิด children ทั้งหมดโดยเงียบๆ โดยไม่ต้อง deploy โค้ด
 </Callout>
 
-## Trade-offs
+## ข้อแลกเปลี่ยน
 
 | ตัวเลือก | Benefit | Cost |
 |---|---|---|
 | ตั้ง Prerequisite flag | ป้องกัน dependency ผิดลำดับ | เพิ่มความซับซ้อนของ dependency graph |
 | ไม่ตั้ง Prerequisite | ง่ายกว่า | เสี่ยง feature ถูกเปิดก่อนที่ dependency พร้อม |
 
-## Common Mistakes
+## ข้อผิดพลาดที่พบบ่อย
 
 - สร้าง circular dependency ระหว่าง flag (flag A ต้องพึ่ง B, B ต้องพึ่ง A)
 - ลืมว่า prerequisite ที่ปิดจะทำให้ feature ลูกปิดไปด้วยเสมอ
 - ไม่ document dependency graph ทำให้ทีมอื่นไม่รู้ว่าทำไม flag ถึงปิดอยู่
 
-> 💡 Real World Example
+> 💡 ตัวอย่างจากของจริง
 >
 > ระบบ platform ขนาดใหญ่ใช้ prerequisite flag เพื่อบังคับว่า feature ใหม่ต้องรอ infrastructure flag (เช่น "new-api-ready") เปิดก่อนเสมอ
 
@@ -137,10 +137,10 @@ export const quizPrerequisites = [
   {
     q: 'GrowthBook ทำอะไรเมื่อคุณพยายามสร้าง circular prerequisite (A ต้องการ B, B ต้องการ A)?',
     options: [
-      'มันเงียบๆ ละเว้น prerequisite ที่สอง',
-      'มันตรวจพบและบล็อก circular dependency ตั้งแต่ save time',
-      'มันอนุญาตแต่ log คำเตือน',
-      'มันทำลาย namespace ของ feature ทั้งหมด',
+      'เงียบๆ ละเว้น prerequisite ที่สอง',
+      'ตรวจพบและบล็อก circular dependency ตั้งแต่ save time',
+      'อนุญาตแต่ log คำเตือน',
+      'ทำลาย namespace ของ feature ทั้งหมด',
     ],
     answer: 1,
   },

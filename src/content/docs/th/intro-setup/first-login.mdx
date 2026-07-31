@@ -13,8 +13,8 @@ import ProgressTracker from '../../../../components/ProgressTracker.tsx';
 
 1. เปิด `http://localhost:3000` (หรือ Cloud URL ของคุณ) ใน browser
 2. คลิก **Get Started** หรือ **Register** — ระบบจะให้คุณสร้างบัญชี admin บัญชีแรก กรอกชื่อ, อีเมล และรหัสผ่านของคุณ
-3. สร้าง **Organization** ของคุณ — ตั้งชื่อให้มัน (เช่น "My Company") นี่คือ container ระดับบนสุดสำหรับทุกอย่างใน GrowthBook
-4. (ไม่บังคับ) สร้าง **Project** — Project ช่วยให้คุณจัดกลุ่ม features และ experiments ภายใน organization คลิก **Create Project** และตั้งชื่อให้มัน
+3. สร้าง **Organization** ของคุณ — ตั้งชื่อ (เช่น "My Company") นี่คือ container ระดับบนสุดสำหรับทุกอย่างใน GrowthBook
+4. (ไม่บังคับ) สร้าง **Project** — Project ช่วยให้คุณจัดกลุ่ม features และ experiments ภายใน organization คลิก **Create Project** แล้วตั้งชื่อ
 5. ตรวจสอบ **Environments** เริ่มต้น: GrowthBook สร้าง `development`, `staging` และ `production` ให้โดยอัตโนมัติ คุณสามารถเพิ่มหรือเปลี่ยนชื่อได้ที่ **Settings → Environments**
 6. สำรวจ sidebar ด้านซ้าย:
    - **Features** — feature flags ของคุณ
@@ -26,20 +26,20 @@ import ProgressTracker from '../../../../components/ProgressTracker.tsx';
 บัญชีแรกที่คุณสร้างจะกลายเป็น admin ของ organization ไม่มีขั้นตอนสร้าง admin แยกต่างหาก — ใครก็ตามที่ register เป็นคนแรกจะเป็นเจ้าของ organization
 </Callout>
 
-## Trade-offs
+## ข้อแลกเปลี่ยน
 
 | ตัวเลือก | Benefit | Cost |
 |---|---|---|
 | Single admin account | เริ่มใช้งานได้เร็วที่สุด | single point of failure, ไม่มีใคร backup ได้ถ้า admin ลาออกหรือลืม password |
 | Multi-user org + role-based access | ปลอดภัยกว่า scale ได้ตามทีม | ตั้งค่าตอนแรกใช้เวลานานกว่า |
 
-## Common Mistakes
+## ข้อผิดพลาดที่พบบ่อย
 
 - ใช้ email ส่วนตัวเป็น admin คนเดียวแทนสร้าง team invite ตั้งแต่แรก
 - ข้าม 2FA/security settings ตอน setup ครั้งแรก
 - ไม่ตั้งชื่อ organization ให้ชัดเจนตั้งแต่แรกทำให้สับสนเมื่อมีหลาย project
 
-> 💡 Real World Example
+> 💡 ตัวอย่างจากของจริง
 >
 > ทีม engineering ที่ Booking.com ตั้ง SSO และ role-based access ตั้งแต่ setup วันแรก เพื่อป้องกันไม่ให้ config เปลี่ยนโดยไม่ได้รับอนุญาต
 

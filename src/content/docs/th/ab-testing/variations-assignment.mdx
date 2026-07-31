@@ -85,20 +85,20 @@ await gb.init({ timeout: 2000 });`;
 Assignment เป็น deterministic — ผู้ใช้คนเดิมจะเห็น variation เดิมเสมอ
 </Callout>
 
-## Trade-offs
+## ข้อแลกเปลี่ยน
 
 | ตัวเลือก | Benefit | Cost |
 |---|---|---|
 | Deterministic hashing | ไม่ต้องเก็บ state ฝั่ง server, scale ง่าย | override เฉพาะ user ยากกว่า |
 | เก็บ assignment ไว้ใน database | ควบคุมและ override ได้ง่ายกว่า | ต้องดูแล infrastructure เพิ่ม |
 
-## Common Mistakes
+## ข้อผิดพลาดที่พบบ่อย
 
 - ใช้ attribute ที่เปลี่ยนได้ (เช่น session ID ใหม่ทุกครั้ง) เป็น hash key ทำให้ user ถูก assign ใหม่ทุกครั้งที่เข้า
 - ไม่เข้าใจว่า traffic percentage ที่ตั้งไม่ใช่ "sample size" แต่คือสัดส่วนของ eligible user
 - เปลี่ยนสัดส่วน variation กลาง experiment ทำให้ analysis เพี้ยน
 
-> 💡 Real World Example
+> 💡 ตัวอย่างจากของจริง
 >
 > GrowthBook และแพลตฟอร์ม experimentation อื่นๆ (เช่นของ Facebook) ใช้ deterministic hash ของ user ID เป็นมาตรฐานอุตสาหกรรมสำหรับ assignment ที่เสถียรและ scale ได้
 

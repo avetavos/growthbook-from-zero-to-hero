@@ -17,13 +17,13 @@ SDK Connection คือวิธีที่คุณอนุญาตให�
 1. ใน GrowthBook UI ไปที่ **Settings** ใน sidebar ด้านซ้าย
 2. คลิก **SDK Connections**
 3. คลิก **Add SDK Connection**
-4. ตั้งชื่อให้มัน (เช่น "Node.js Dev")
+4. ตั้งชื่อ (เช่น "Node.js Dev")
 5. เลือก **Environment** (เช่น `development`)
 6. เลือก **Language / Framework** (เช่น JavaScript/Node.js)
 7. คลิก **Save** GrowthBook จะแสดงค่าสองค่าให้คุณ:
    - **apiHost** — สำหรับ self-hosted: `http://localhost:3100`; สำหรับ Cloud: `https://cdn.growthbook.io`
    - **clientKey** — string ที่ขึ้นต้นด้วย `sdk-...`
-8. คัดลอกทั้งสองค่า คุณจะใช้มันในการ initialize SDK
+8. คัดลอกทั้งสองค่า คุณจะใช้ค่าเหล่านี้ในการ initialize SDK
 
 ```js
 import { GrowthBook } from '@growthbook/growthbook';
@@ -61,20 +61,20 @@ if (gb.isOn('my-feature')) {
 SDK Connection จะจำกัดขอบเขต clientKey หนึ่งตัวไว้กับ environment ที่เฉพาะเจาะจง ใช้ SDK Connection แยกกัน (และดังนั้นจึงมี clientKey แยกกัน) สำหรับ development กับ production เพื่อให้สถานะของ flag แยกขาดจากกัน
 </Callout>
 
-## Trade-offs
+## ข้อแลกเปลี่ยน
 
 | ตัวเลือก | Benefit | Cost |
 |---|---|---|
 | SDK key แยกต่อ environment | ปลอดภัยกว่า จำกัด blast radius | จัดการหลาย key ซับซ้อนกว่า |
 | SDK key เดียวกันทุกที่ | ตั้งค่าเร็วกว่า | เสี่ยง flag รั่วข้าม environment |
 
-## Common Mistakes
+## ข้อผิดพลาดที่พบบ่อย
 
 - ใช้ SDK key เดียวกันทั้ง dev และ production ทำให้ทดสอบ flag ผิด environment โดยไม่ตั้งใจ
 - hardcode `clientKey` ในโค้ด client-side โดยไม่ผ่าน environment variable
 - ไม่ตั้ง timeout ให้ `gb.init()` ทำให้แอป hang รอ network
 
-> 💡 Real World Example
+> 💡 ตัวอย่างจากของจริง
 >
 > ทีม engineering ขนาดใหญ่แยก SDK connection ต่อ service/microservice เพื่อจำกัด blast radius ถ้า key รั่วออกไป
 

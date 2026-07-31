@@ -29,7 +29,7 @@ GrowthBook มีสองวิธีในการรัน A/B experiment:
 | `result.inExperiment` | boolean | `true` ถ้าผู้ใช้ถูก assign เข้า variation bucket สำเร็จ |
 | `result.variationId` | number | index ของ variation ที่ถูก assign (เริ่มที่ 0) |
 
-เมื่อ `result.inExperiment` เป็น `false` แสดงว่าผู้ใช้อยู่นอก experiment (เช่น traffic coverage น้อยกว่า 100% หรือ experiment หยุดแล้ว) ในกรณีนั้น `result.value` จะเป็นองค์ประกอบแรกใน array `variations` เสมอ — ซึ่งเป็น default ที่ปลอดภัย
+เมื่อ `result.inExperiment` เป็น `false` แสดงว่าผู้ใช้อยู่นอก experiment (เช่น traffic coverage น้อยกว่า 100% หรือ experiment หยุดแล้ว) ในกรณีนั้น `result.value` จะเป็นองค์ประกอบแรกใน array `variations` เสมอ — ที่เป็น default ที่ปลอดภัย
 
 ### ตัวอย่าง inline experiment
 
@@ -63,20 +63,20 @@ if (result.inExperiment) {
 `gb.run()` ให้คุณนิยาม experiment โดยตรงในโค้ด เมื่อคุณไม่ต้องการใช้ feature rule
 </Callout>
 
-## Trade-offs
+## ข้อแลกเปลี่ยน
 
 | ตัวเลือก | Benefit | Cost |
 |---|---|---|
 | Feature-flag experiment | เชื่อม logic เข้ากับโค้ดที่มีอยู่ ยืดหยุ่นกว่า | ต้องแก้โค้ดเพื่อเชื่อม experiment |
 | Visual editor experiment | ไม่ต้องแก้โค้ด | จำกัดกับการเปลี่ยน UI เท่านั้น |
 
-## Common Mistakes
+## ข้อผิดพลาดที่พบบ่อย
 
 - เรียก `getFeatureValue` โดยไม่ระบุ stable user attribute ทำให้ assignment ไม่เสถียรข้าม session
 - ไม่ track exposure event ทำให้ analysis ไม่มีข้อมูล
 - mix การ implement หลาย SDK version ในโค้ดเดียวกันทำให้ behavior ไม่ตรงกัน
 
-> 💡 Real World Example
+> 💡 ตัวอย่างจากของจริง
 >
 > ทีม engineering ที่ Spotify เชื่อม experiment เข้ากับ feature flag ที่มีอยู่แล้วเสมอ แทนสร้าง experiment แยกต่างหาก เพื่อลด code path ที่ต้อง maintain
 
@@ -95,7 +95,7 @@ export const quizSdkExperiments = [
     q: 'ความแตกต่างหลักระหว่าง gb.run() กับ feature-flag experiment คืออะไร?',
     options: [
       'gb.run() ต้องการ data source แต่ feature-flag experiment ไม่ต้อง',
-      'gb.run() นิยาม experiment ทั้งหมดในโค้ดโดยไม่ต้องมี feature rule ใน GrowthBook UI ในขณะที่ feature-flag experiment ขับเคลื่อนด้วย rule ที่ตั้งค่าใน UI',
+      'gb.run() นิยาม experiment ทั้งหมดในโค้ดโดยไม่ต้องมี feature rule ใน GrowthBook UI ส่วน feature-flag experiment ขับเคลื่อนด้วย rule ที่ตั้งค่าใน UI',
       'Feature-flag experiment รองรับ variation ได้มากกว่าสอง แต่ gb.run() จำกัดที่สอง',
       'gb.run() รวม traffic 100% เสมอ แต่ feature-flag experiment สามารถจำกัด coverage ได้',
     ],

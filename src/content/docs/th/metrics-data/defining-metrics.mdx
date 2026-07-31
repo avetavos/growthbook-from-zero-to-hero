@@ -14,10 +14,10 @@ import ProgressTracker from '../../../../components/ProgressTracker.tsx';
 
 GrowthBook ใช้โมเดลสองชั้น:
 
-1. **Fact Table** — เป็น wrapper บางๆ รอบ raw event table ใน warehouse ของคุณ มันกำหนดว่า SQL query ใดที่ดึง raw events ออกมา และ column ใดที่แทน user ID, timestamp, และค่าตัวเลข
-2. **Metric** — คำนิยามทางสถิติที่สร้างบน Fact Table มันบอกว่าจะ aggregate raw events เป็นตัวเลขต่อ user ต่อ experiment _อย่างไร_
+1. **Fact Table** — เป็น wrapper บางๆ รอบ raw event table ใน warehouse ของคุณ ทำหน้าที่กำหนดว่า SQL query ใดที่ดึง raw events ออกมา และ column ใดที่แทน user ID, timestamp, และค่าตัวเลข
+2. **Metric** — คำนิยามทางสถิติที่สร้างบน Fact Table เป็นตัวกำหนดว่าจะ aggregate raw events เป็นตัวเลขต่อ user ต่อ experiment _อย่างไร_
 
-การแยกสองชั้นนี้หมายความว่าคุณกำหนด data shape ครั้งเดียว (Fact Table) และสร้าง metrics ต่างๆ จากมันได้มากมายโดยไม่ต้องเขียน SQL ซ้ำ
+การแยกสองชั้นนี้หมายความว่าคุณกำหนด data shape ครั้งเดียว (Fact Table) แล้วสร้าง metric ได้หลายตัวจาก Fact Table เดียวกันโดยไม่ต้องเขียน SQL ซ้ำ
 
 ## ประเภท metric
 
@@ -90,20 +90,20 @@ WHERE
 Fact Table metrics ถูกกำหนดครั้งเดียวและสามารถแนบกับ experiment ใดก็ได้ในฐานะ goal หรือ guardrail metric คุณไม่ต้องเขียน SQL เดิมซ้ำทุก experiment นอกจากนี้ยังทำให้ metric definitions ตรวจสอบได้และจัดการ version ได้ถ้า export ผ่าน GrowthBook API
 </Callout>
 
-## Trade-offs
+## ข้อแลกเปลี่ยน
 
 | ตัวเลือก | Benefit | Cost |
 |---|---|---|
 | Goal metric ที่เจาะจงมาก | วัดผลชัดเจนตรงประเด็น | อาจพลาด side effect ที่ metric อื่นจับได้ |
 | Metric ที่กว้างครอบคลุม | ครอบคลุมผลกระทบกว้างกว่า | ตีความยากว่าอะไรขับเคลื่อนผล |
 
-## Common Mistakes
+## ข้อผิดพลาดที่พบบ่อย
 
 - นิยาม metric ที่ไม่ตรงกับ business goal จริง (วัด vanity metric แทน conversion จริง)
 - ไม่ตั้ง guardrail metric ทำให้พลาดผลข้างเคียงที่แย่ (เช่น page load ช้าลง)
 - เปลี่ยนนิยาม metric กลาง experiment ทำให้เปรียบเทียบผลก่อน-หลังไม่ได้
 
-> 💡 Real World Example
+> 💡 ตัวอย่างจากของจริง
 >
 > ทีม data ที่ Booking.com ตั้ง guardrail metric (เช่น error rate, latency) คู่กับทุก goal metric เสมอ เพื่อจับผลข้างเคียงที่ไม่คาดคิด
 
@@ -111,10 +111,10 @@ export const quizDefiningMetrics = [
   {
     q: 'Fact Table ใน GrowthBook มีจุดประสงค์อะไร?',
     options: [
-      'มันเก็บ experiment assignment data',
-      'มันเป็น SQL wrapper บางๆ รอบ raw event table ที่ metrics สร้างขึ้นมาบน',
-      'มันคือที่ที่ GrowthBook cache ผล query',
-      'มันกำหนด traffic split ของ A/B test',
+      'เก็บ experiment assignment data',
+      'เป็น SQL wrapper บางๆ รอบ raw event table ที่ metrics สร้างขึ้นมาบน',
+      'เป็นที่ที่ GrowthBook cache ผล query',
+      'กำหนด traffic split ของ A/B test',
     ],
     answer: 1,
   },
@@ -141,10 +141,10 @@ export const quizDefiningMetrics = [
   {
     q: 'ทำไมการแยก Fact Tables จาก Metrics จึงมีประโยชน์?',
     options: [
-      'มันให้คุณกำหนด data shape ครั้งเดียวและสร้าง metrics หลายตัวโดยไม่ต้องเขียน SQL ซ้ำ',
-      'มันทำให้ GrowthBook รัน queries เร็วขึ้น',
-      'มันจำเป็นสำหรับ BigQuery แต่ไม่ใช่ Snowflake',
-      'มันป้องกันผู้ใช้เห็น raw event data',
+      'ให้คุณกำหนด data shape ครั้งเดียวและสร้าง metrics หลายตัวโดยไม่ต้องเขียน SQL ซ้ำ',
+      'ทำให้ GrowthBook รัน queries เร็วขึ้น',
+      'จำเป็นสำหรับ BigQuery แต่ไม่ใช่ Snowflake',
+      'ป้องกันผู้ใช้เห็น raw event data',
     ],
     answer: 0,
   },

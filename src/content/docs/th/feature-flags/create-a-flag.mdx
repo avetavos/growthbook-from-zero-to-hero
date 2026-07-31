@@ -1,6 +1,6 @@
 ---
 title: 'สร้าง Flag'
-description: 'ทีละขั้นตอน: สร้าง Feature ใน GrowthBook UI และประเมินค่ามันผ่าน SDK'
+description: 'ทีละขั้นตอน: สร้าง Feature ใน GrowthBook UI และประเมินค่าผ่าน SDK'
 sidebar:
   order: 2
 ---
@@ -12,7 +12,7 @@ import ProgressTracker from '../../../../components/ProgressTracker.tsx';
 
 ## สร้าง Feature แรกของคุณใน GrowthBook
 
-Feature ใน GrowthBook แมปตรงกับ feature flag ในโค้ดของคุณ ต่อไปนี้คือวิธีสร้างมันขึ้นมาตั้งแต่ต้น
+Feature ใน GrowthBook แมปตรงกับ feature flag ในโค้ดของคุณ ต่อไปนี้คือวิธีสร้างขึ้นมาตั้งแต่ต้น
 
 ### ขั้นที่ 1 — เปิดรายการ Features
 
@@ -35,11 +35,11 @@ Feature ใน GrowthBook แมปตรงกับ feature flag ในโค�
 2. คลิก toggle ข้าง ๆ **development** เพื่อสลับจาก **Disabled** เป็น **Enabled**
 3. เนื่องจากยังไม่มี override rule ใด ๆ ผู้ใช้ทุกคนจะได้รับ default value เป็น `true` ใน development
 
-> **เคล็ดลับ:** คุณสามารถตั้ง default value เฉพาะแต่ละ environment ให้ต่างจาก default ส่วนกลางได้ ทำให้คุณปล่อย `true` ใน development ได้ในขณะที่ยังคงเป็น `false` ใน production จนกว่าคุณจะพร้อม
+> **เคล็ดลับ:** คุณสามารถตั้ง default value เฉพาะแต่ละ environment ให้ต่างจาก default ส่วนกลางได้ ทำให้คุณปล่อย `true` ใน development ได้ โดยยังคงเป็น `false` ใน production จนกว่าคุณจะพร้อม
 
 ## อ่านค่า flag ในโค้ดของคุณ
 
-เมื่อ feature มีอยู่ใน GrowthBook แล้ว ให้ใช้ SDK ในการประเมินค่ามัน:
+เมื่อ feature มีอยู่ใน GrowthBook แล้ว ให้ใช้ SDK ประเมินค่า:
 
 ### ตรวจค่า boolean ด้วย isOn
 
@@ -92,20 +92,20 @@ const flagValue = gb.getFeatureValue('my-flag', false);`;
 **key** ของ feature คือสัญญาระหว่าง GrowthBook กับโค้ดของคุณ — ต้องรักษาให้คงที่ การเปลี่ยนชื่อ key ใน GrowthBook หลังจากที่คุณ deploy ไปแล้วจะทำให้ทุกการเรียก SDK ที่ยังใช้ชื่อเก่าพังหมด
 </Callout>
 
-## Trade-offs
+## ข้อแลกเปลี่ยน
 
 | ตัวเลือก | Benefit | Cost |
 |---|---|---|
 | Boolean flag | เรียบง่าย เข้าใจง่ายที่สุด | ใช้ได้แค่ on/off ไม่ flexible |
 | Multi-variate / JSON flag | flexible กว่ามาก ปรับ config ได้ละเอียด | ซับซ้อนกว่าในการ maintain และ validate |
 
-## Common Mistakes
+## ข้อผิดพลาดที่พบบ่อย
 
 - สร้าง flag โดยไม่ตั้งชื่อที่สื่อความหมาย (เช่น `flag1`)
 - ไม่ตั้ง description ทำให้ทีมอื่นไม่เข้าใจว่า flag ทำอะไร
 - สร้าง flag ซ้ำสำหรับ feature เดียวกันในหลาย environment
 
-> 💡 Real World Example
+> 💡 ตัวอย่างจากของจริง
 >
 > Spotify ใช้ feature flag ตั้งชื่อตาม convention ที่ชัดเจน (team-feature-purpose) เพื่อให้ค้นหาและ audit ได้ง่ายเมื่อมี flag หลักพันตัว
 

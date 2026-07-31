@@ -85,20 +85,20 @@ if (variation === 'variant') {
 เริ่มต้นด้วย hypothesis ที่ชัดเจนและ primary metric เพียงหนึ่งอัน การกำหนด primary metric ก่อนเริ่มการทดสอบจะป้องกัน HARKing (Hypothesizing After Results are Known) และทำให้การวิเคราะห์ทางสถิติมีความน่าเชื่อถือ
 </Callout>
 
-## Trade-offs
+## ข้อแลกเปลี่ยน
 
 | ตัวเลือก | Benefit | Cost |
 |---|---|---|
 | Experiment ที่มี hypothesis ชัดเจนล่วงหน้า | วัดผลตรงประเด็น ตัดสินใจง่ายกว่า | ต้องใช้เวลาคิด hypothesis ก่อนเริ่ม |
 | Experiment แบบลองดูก่อน ไม่มี hypothesis | เริ่มได้เร็วกว่า | เสี่ยง p-hacking หา pattern ปลอมๆ ทีหลัง |
 
-## Common Mistakes
+## ข้อผิดพลาดที่พบบ่อย
 
 - เริ่ม experiment โดยไม่มี hypothesis ที่ชัดเจน
 - ทดสอบหลาย variation พร้อมกันโดยเปลี่ยนหลายอย่างในตัวเดียว (ไม่รู้ว่าอะไรเป็นตัวขับเคลื่อนผล)
 - จบ experiment เร็วเกินไปก่อนถึง sample size ที่วางแผนไว้
 
-> 💡 Real World Example
+> 💡 ตัวอย่างจากของจริง
 >
 > ทีม product ที่ Booking.com เขียน hypothesis document ก่อนเริ่มทุก experiment เสมอ เพื่อป้องกันการตีความผลลัพธ์แบบเข้าทาง
 

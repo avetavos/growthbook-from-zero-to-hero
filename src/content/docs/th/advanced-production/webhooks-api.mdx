@@ -103,20 +103,20 @@ export const eventWebhookPayload = `// Example GrowthBook event webhook payload 
 ใช้ REST API และ webhooks ร่วมกันเพื่อ automate การเปลี่ยนแปลง flag จาก CI/CD — API toggle flag และ webhook บอกให้ server ของคุณ invalidate SDK cache ทันที
 </Callout>
 
-## Trade-offs
+## ข้อแลกเปลี่ยน
 
 | ตัวเลือก | Benefit | Cost |
 |---|---|---|
 | Webhook | real-time notification เมื่อ flag เปลี่ยน ดีสำหรับ automation | ต้อง handle retry/signature verification เอง |
 | Polling ผ่าน API | เรียบง่ายกว่า | มี delay และเปลือง request |
 
-## Common Mistakes
+## ข้อผิดพลาดที่พบบ่อย
 
 - ไม่ verify webhook signature ทำให้เสี่ยงถูกปลอม request
 - ไม่ handle retry เมื่อ webhook endpoint down ทำให้พลาด event
 - เก็บ API key ไว้ใน client-side code ที่เข้าถึงได้จากภายนอก
 
-> 💡 Real World Example
+> 💡 ตัวอย่างจากของจริง
 >
 > ทีม DevOps ใช้ webhook ของ GrowthBook เชื่อมกับ Slack เพื่อแจ้งเตือนทันทีเมื่อมีคนแก้ flag ใน production ช่วย audit และ debug ได้เร็วขึ้น
 

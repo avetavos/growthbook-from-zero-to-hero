@@ -37,7 +37,7 @@ GrowthBook รองรับ operator หลากหลายเพื่อ m
 
 ### Advanced JSON mode
 
-สำหรับ power user GrowthBook รองรับ condition JSON แบบ MongoDB-style ซึ่งเป็นรูปแบบเดียวกับที่ engine การประเมินใช้ภายใน คลิก **Advanced** ในตัวแก้ไข rule เพื่อป้อน JSON ดิบแทนการใช้ visual builder
+สำหรับ power user GrowthBook รองรับ condition JSON แบบ MongoDB-style ที่เป็นรูปแบบเดียวกับที่ engine การประเมินใช้ภายใน คลิก **Advanced** ในตัวแก้ไข rule เพื่อป้อน JSON ดิบแทนการใช้ visual builder
 
 match ผู้ใช้ที่ `country` เป็น `TH` **และ** `plan` เป็น `pro`:
 
@@ -84,20 +84,20 @@ console.log('beta-feature:', isBetaEnabled);`;
 รวมหลาย condition บน rule เดียวเพื่อจำกัด audience ให้แม่นยำ เช่น พนักงานในประเทศไทยที่ใช้ plan pro ผู้ใช้ที่ไม่ match ทุก condition จะข้าม rule นั้นและตกไปยัง rule ถัดไป
 </Callout>
 
-## Trade-offs
+## ข้อแลกเปลี่ยน
 
 | ตัวเลือก | Benefit | Cost |
 |---|---|---|
 | Targeting condition ซับซ้อน | แม่นยำกว่ามาก | debug ยากกว่าเมื่อผลลัพธ์ไม่ตรงคาด |
 | Condition เรียบง่าย | debug ง่ายกว่า | หยาบกว่า ครอบคลุม use case น้อยกว่า |
 
-## Common Mistakes
+## ข้อผิดพลาดที่พบบ่อย
 
 - เขียน condition ที่ขัดแย้งกันเอง (เช่น country = TH AND country = US) ทำให้ไม่มี user คนไหน match เลย
 - ซ้อน condition หลายชั้นจนไม่มีใครในทีมอ่านเข้าใจ
 - ไม่เทสต์ condition กับ user จริงก่อนปล่อยใช้งาน
 
-> 💡 Real World Example
+> 💡 ตัวอย่างจากของจริง
 >
 > ทีม growth ที่ Booking.com ใช้ targeting condition ผสมกันหลายชั้น (country + device + subscription tier) เพื่อปล่อย feature เฉพาะ segment ที่มีโอกาสได้ผลดีที่สุดก่อน
 

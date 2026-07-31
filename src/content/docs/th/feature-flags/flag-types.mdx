@@ -12,7 +12,7 @@ import ProgressTracker from '../../../../components/ProgressTracker.tsx';
 
 ## value type ทั้งสี่แบบ
 
-เมื่อคุณสร้าง Feature ใน GrowthBook คุณจะเลือก **value type** หนึ่งในสี่แบบ ชนิดนี้เป็นแบบถาวร — คุณไม่สามารถเปลี่ยนมันได้หลังจากสร้างไปแล้ว ดังนั้นเลือกอย่างตั้งใจ
+เมื่อคุณสร้าง Feature ใน GrowthBook คุณจะเลือก **value type** หนึ่งในสี่แบบ ชนิดนี้เป็นแบบถาวร — คุณเปลี่ยนไม่ได้หลังจากสร้างไปแล้ว ดังนั้นเลือกอย่างตั้งใจ
 
 ### Boolean
 
@@ -93,24 +93,24 @@ console.log(config.size);  // 'md' or whatever GrowthBook returns`;
 <CopyCode client:visible code={jsonFlagCode} label="Copy JSON flag snippet" />
 
 <Callout title="จุดสำคัญ">
-JSON flag ช่วยให้คุณส่ง configuration ได้ ไม่ใช่แค่สวิตช์เปิด/ปิด แทนที่จะ deploy flag แยกกันห้าตัวสำหรับการออกแบบหน้า pricing ใหม่ ให้ใส่ตัวเลือกทั้งหมดไว้ใน JSON flag เดียวแล้วเปลี่ยนมันแบบ atomic ใน GrowthBook
+JSON flag ช่วยให้คุณส่ง configuration ได้ ไม่ใช่แค่สวิตช์เปิด/ปิด แทนที่จะ deploy flag แยกกันห้าตัวสำหรับการออกแบบหน้า pricing ใหม่ ให้ใส่ตัวเลือกทั้งหมดไว้ใน JSON flag เดียว แล้วเปลี่ยนค่าทั้งชุดแบบ atomic ใน GrowthBook
 </Callout>
 
-## Trade-offs
+## ข้อแลกเปลี่ยน
 
-| Type | Benefit | Cost |
+| ประเภท | ประโยชน์ | ต้นทุน |
 |---|---|---|
 | Boolean | ง่ายสุด เข้าใจทันที | ใช้ได้กับ on/off เท่านั้น |
 | String / Number | ทำ multi-variant ได้ | ต้องจัดการหลายค่ามากกว่า boolean |
 | JSON | flexible สุด ปรับ config ซับซ้อนได้ | ผู้ใช้ต้อง parse/validate เอง เสี่ยง runtime error |
 
-## Common Mistakes
+## ข้อผิดพลาดที่พบบ่อย
 
 - ใช้ JSON flag สำหรับ config ที่ควรเป็นแค่ boolean ทำให้ซับซ้อนเกินจำเป็น
 - ไม่ validate schema ของ JSON flag ทำให้แอป crash ถ้ามีคน edit ผิด
 - เปลี่ยน value type ของ flag ที่มีอยู่แล้วทำให้โค้ดเดิมพัง
 
-> 💡 Real World Example
+> 💡 ตัวอย่างจากของจริง
 >
 > Netflix ใช้ JSON-type flag สำหรับ config UI ที่ซับซ้อน (เช่น layout ของหน้า home) เพื่อปรับแต่งได้ละเอียดโดยไม่ต้อง deploy
 
@@ -136,7 +136,7 @@ export const quizFlagTypes = [
     answer: 3,
   },
   {
-    q: 'คุณสามารถเปลี่ยน value type ของ Feature ได้ไหมหลังจากที่มันถูกสร้างใน GrowthBook แล้ว?',
+    q: 'คุณสามารถเปลี่ยน value type ของ Feature ได้ไหมหลังจากที่ถูกสร้างใน GrowthBook แล้ว?',
     options: [
       'ได้ ทุกเมื่อจากหน้า settings ของ Feature',
       'ไม่ได้ value type เป็นแบบถาวร',

@@ -18,7 +18,7 @@ import Mermaid from '../../../../components/Mermaid.astro';
 1. **Override rules** — เงื่อนไข, percentage rollout หรือการกำหนด experiment ที่คุณตั้งค่าต่อ environment เมื่อ rule ตรงกับ context ของผู้ใช้ปัจจุบัน rule นั้นจะชนะ
 2. **Default value** — ค่าที่คืนกลับมาเมื่อ **ไม่มี rule ตรงเงื่อนไข** นี่คือพื้นที่ปลอดภัยของคุณ
 
-เมื่อ GrowthBook เข้าถึงไม่ได้เลย (network error, CDN ล่ม) SDK จะตกลงไปใช้ **argument สำหรับ fallback** ที่คุณส่งโดยตรงในโค้ดของคุณ — มันไม่เคยคืน `null` หรือ throw
+เมื่อ GrowthBook เข้าถึงไม่ได้เลย (network error, CDN ล่ม) SDK จะตกลงไปใช้ **argument สำหรับ fallback** ที่คุณส่งโดยตรงในโค้ดของคุณ — ไม่เคยคืน `null` หรือ throw
 
 ## fallback สามชั้น
 
@@ -42,7 +42,7 @@ const text = gb.getFeatureValue('banner-text');
 const text = gb.getFeatureValue('banner-text', 'Welcome');
 ```
 
-argument สำหรับ fallback คือแนวป้องกันด่านสุดท้าย มันควรแทนประสบการณ์ที่คุณต้องการให้ผู้ใช้ได้รับหาก GrowthBook ล่ม — โดยปกติคือพฤติกรรมปัจจุบันที่เสถียร
+argument สำหรับ fallback คือแนวป้องกันด่านสุดท้าย ควรแทนประสบการณ์ที่คุณต้องการให้ผู้ใช้ได้รับหาก GrowthBook ล่ม — โดยปกติคือพฤติกรรมปัจจุบันที่เสถียร
 
 ## ตั้งค่า default value ใน GrowthBook
 
@@ -111,20 +111,20 @@ document.getElementById('banner').textContent = bannerText;`;
 ส่ง fallback ที่สมเหตุสมผลให้ `getFeatureValue` เสมอ เพื่อให้แอปของคุณทำงานได้ถูกต้องหาก GrowthBook เข้าถึงไม่ได้ fallback ควรแทนประสบการณ์ผู้ใช้ที่เสถียรและปลอดภัย — โดยปกติคือพฤติกรรมที่แอปของคุณมีอยู่ก่อนที่จะมี flag นี้
 </Callout>
 
-## Trade-offs
+## ข้อแลกเปลี่ยน
 
 | ตัวเลือก | Benefit | Cost |
 |---|---|---|
 | Default value แบบปลอดภัย (safe fallback) | แอปไม่พังแม้ SDK ล้มเหลว | feature อาจดูด้อยกว่าที่ตั้งใจตอน fallback |
 | Default ตาม experience ใหม่ | ตรงกับที่ตั้งใจมากกว่า | เสี่ยงถ้า SDK ล้มเหลวและต้องพึ่ง default นี้ |
 
-## Common Mistakes
+## ข้อผิดพลาดที่พบบ่อย
 
 - ตั้ง default value เป็น "เปิด" ฟีเจอร์ที่เสี่ยงไว้ (ควรเป็น safe fallback เสมอ)
 - ไม่ทดสอบว่าแอปทำงานถูกต้องเมื่อ SDK connect ไม่ได้และต้องพึ่ง default
 - ลืมว่า default value ต่างจาก "ค่าที่ set ไว้ใน UI"
 
-> 💡 Real World Example
+> 💡 ตัวอย่างจากของจริง
 >
 > Facebook ออกแบบระบบ feature flag ให้ default เป็น "safe" เสมอเมื่อ config service ล่ม เพื่อไม่ให้แอป crash ทั้งระบบ
 
@@ -145,7 +145,7 @@ export const quizDefaultValues = [
       'default value ของ Feature ที่ตั้งค่าไว้ใน GrowthBook',
       'argument สำหรับ fallback ที่ส่งให้ getFeatureValue ในโค้ดของคุณ',
       'true สำหรับ boolean, สตริงว่างสำหรับ string',
-      'มัน throw network error',
+      'throw network error',
     ],
     answer: 1,
   },
