@@ -16,10 +16,6 @@ import ProgressTracker from '../../../../components/ProgressTracker.tsx';
 
 ใน browser app มักสร้าง `GrowthBook` instance เดียวตลอดอายุของ page แต่บน server แต่ละ HTTP request อาจมีผู้ใช้ต่างกันโดยสิ้นเชิง จึงต้องใช้ **per-request scoping** — สร้าง (หรือ clone) instance ใหม่ต่อทุก request และ set user-specific attributes บน instance นั้น
 
-## ความแตกต่างจาก Browser
-
-บน server แต่ละ HTTP request อาจมีผู้ใช้ต่างกัน จึงต้องสร้าง GrowthBook instance (หรือ clone) ต่อ request และ set user-specific attributes บน instance นั้น แทนที่จะแชร์ instance เดียวตลอดอายุของ process
-
 ## Cache Payload ระหว่าง Requests
 
 การดึง feature definitions จาก GrowthBook ทุก request จะเพิ่ม latency และสิ้นเปลือง bandwidth แทนที่ด้วยการดึง payload ครั้งเดียวตอน startup เก็บไว้ใน memory แล้ว reuse: `gb.init({ payload: cachedPayload })` พร้อม cached payload วิธีนี้ข้ามการ network call ไปได้เลยโดยยังคง flag evaluation ที่ถูกต้อง

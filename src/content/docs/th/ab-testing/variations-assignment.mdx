@@ -23,8 +23,8 @@ const gb = new GrowthBook({
   apiHost: 'https://cdn.growthbook.io',
   clientKey: 'sdk-YOUR_KEY',
   attributes: {
-    id: 'user-123',       // ค่า hashAttribute
-    country: 'TH',
+    id: 'user-123',       // hashAttribute value
+    country: 'US',
   },
 });
 ```
@@ -100,7 +100,7 @@ Assignment เป็น deterministic — ผู้ใช้คนเดิม�
 
 > 💡 ตัวอย่างจากของจริง
 >
-> GrowthBook และแพลตฟอร์ม experimentation อื่นๆ (เช่นของ Facebook) ใช้ deterministic hash ของ user ID เป็นมาตรฐานอุตสาหกรรมสำหรับ assignment ที่เสถียรและ scale ได้
+> GrowthBook และแพลตฟอร์ม experimentation ส่วนใหญ่ใช้ deterministic hash ของ user ID เป็นมาตรฐานอุตสาหกรรมสำหรับ assignment ที่เสถียรและ scale ได้ โดยไม่ต้องเก็บ state ฝั่ง server ต่อ user ต่อ experiment
 
 export const quizVariationsAssignment = [
   {

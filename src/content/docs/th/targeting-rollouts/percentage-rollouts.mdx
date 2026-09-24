@@ -73,7 +73,7 @@ if (gb.isOn('new-dashboard')) {
 
 > 💡 ตัวอย่างจากของจริง
 >
-> Netflix และ Facebook ใช้ progressive rollout (1% → 5% → 25% → 100%) เป็นมาตรฐานสำหรับทุก feature ใหญ่ เพื่อจำกัดความเสียหายถ้าเกิดบัค
+> Progressive rollout (เช่น 1% → 5% → 25% → 100%) เป็น pattern มาตรฐานในอุตสาหกรรมสำหรับปล่อย feature ใหญ่ เพื่อจำกัด blast radius ถ้าเกิดบัคก่อนที่จะกระทบผู้ใช้ทุกคน
 
 export const quizPercentageRollouts = [
   {

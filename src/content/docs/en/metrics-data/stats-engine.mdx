@@ -70,6 +70,16 @@ When sequential testing is on, GrowthBook adjusts the confidence interval to rem
 For most product teams, Bayesian "chance to win" is the most intuitive decision signal — no need to explain p-values or significance thresholds. Switch to Frequentist if your organization standardizes on p-values, your statisticians require it, or you are publishing results externally. Both engines support CUPED.
 </Callout>
 
+## Common mistakes
+
+- Changing the stats engine mid-experiment, making results incomparable
+- Using Frequentist without enabling sequential testing while checking results daily (the peeking problem, which inflates false positives)
+- Not understanding the difference between "significant" and "important" (a small significant result may have no business meaning)
+
+> 💡 Real-world example
+>
+> Larger data science teams often prefer Frequentist because external auditors/stakeholders are more familiar with p-values, while product teams often prefer the Bayesian "chance to win" framing because it's easier to communicate.
+
 export const quizStatsEngine = [
   {
     q: 'What does the Bayesian "Chance to Win" metric represent?',

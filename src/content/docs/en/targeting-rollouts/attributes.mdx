@@ -79,6 +79,23 @@ gb.setAttributes({
 If your code never calls `setAttributes` with `country`, any rule that targets `country` will never match. Always keep your SDK attributes in sync with what you define in Settings → Attributes.
 </Callout>
 
+## Trade-offs
+
+| Option | Benefit | Cost |
+|---|---|---|
+| Send detailed attributes | Much more precise targeting | Risk of privacy/PII exposure if unnecessary data is sent |
+| Send only the minimum required attributes | Safer | Coarser targeting |
+
+## Common mistakes
+
+- Sending PII (e.g. a full email address) as an attribute unnecessarily
+- Using a frequently-changing attribute (e.g. a timestamp) as a targeting key, making assignment unstable
+- Not keeping the attribute schema in the SDK in sync with what's configured in the GrowthBook UI
+
+> 💡 Real-world example
+>
+> Apps that handle sensitive user data typically send only the attributes required for targeting (e.g. country, plan tier) rather than personal data, to reduce privacy risk.
+
 export const quizAttributes = [
   {
     q: 'What is the purpose of calling `gb.setAttributes(...)` in the SDK?',

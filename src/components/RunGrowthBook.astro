@@ -6,6 +6,7 @@ services:
     environment:
       - MONGO_INITDB_ROOT_USERNAME=root
       - MONGO_INITDB_ROOT_PASSWORD=password
+    volumes: ["mongodata:/data/db"]
   growthbook:
     image: growthbook/growthbook:latest
     ports: ["3000:3000", "3100:3100"]
@@ -14,7 +15,8 @@ services:
       - MONGO_URL=mongodb://root:password@mongo:27017/
     volumes: ["uploads:/usr/local/src/app/packages/back-end/uploads"]
 volumes:
-  uploads:`;
+  uploads:
+  mongodata:`;
 const { script = compose } = Astro.props;
 ---
 <aside class="rr">

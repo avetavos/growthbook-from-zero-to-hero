@@ -49,6 +49,32 @@ if (gb.isOn('new-dashboard')) {
 Raising coverage from 10% to 50% adds new users to the rollout — it does not reassign existing users. A user who saw the new feature at 10% will continue to see it at 50% and 100%.
 </Callout>
 
+## Rollout Strategy Comparison
+
+| Strategy | Risk | Speed |
+|----------|------|-------|
+| Big Bang Release | High | Fast |
+| Canary Release | Medium | Medium |
+| Progressive Rollout | Low | Slow |
+| Feature Flag | Very low | Adjustable as needed |
+
+## Trade-offs
+
+| Option | Benefit | Cost |
+|---|---|---|
+| Slow rollout (staged percentages) | Safer, catches problems before they hit many users | Takes longer to reach 100% |
+| Fast rollout | You see results in hand sooner | Larger blast radius if something breaks |
+
+## Common mistakes
+
+- Rolling out to 100% immediately without going through small percentage stages first
+- Not monitoring metrics during each rollout stage
+- Increasing the percentage too quickly without waiting long enough to see the previous stage's results
+
+> 💡 Real-world example
+>
+> Progressive rollout (e.g. 1% → 5% → 25% → 100%) is a common industry pattern for shipping large features, so a bug's blast radius is limited before it reaches everyone.
+
 export const quizPercentageRollouts = [
   {
     q: 'What is the hash attribute used for in a percentage rollout?',

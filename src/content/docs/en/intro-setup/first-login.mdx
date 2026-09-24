@@ -26,6 +26,23 @@ After starting GrowthBook with Docker, the first thing to do is create the admin
 The first account you create becomes the organization admin. There is no separate admin-creation step — whoever registers first owns the organization.
 </Callout>
 
+## Trade-offs
+
+| Option | Benefit | Cost |
+|---|---|---|
+| Single admin account | Fastest to get started | Single point of failure — no one can recover if the admin leaves or forgets the password |
+| Multi-user org with role-based access | Safer, scales with the team | Takes longer to set up initially |
+
+## Common mistakes
+
+- Using a personal email as the sole admin instead of setting up team invites from the start
+- Skipping 2FA/security settings during initial setup
+- Not naming the organization clearly from the start, causing confusion once there are multiple projects
+
+> 💡 Real-world example
+>
+> Engineering teams commonly set up SSO and role-based access from day one of setup, to prevent unauthorized configuration changes.
+
 export const quizFirstLogin = [
   {
     q: 'What is the URL for a self-hosted GrowthBook UI?',

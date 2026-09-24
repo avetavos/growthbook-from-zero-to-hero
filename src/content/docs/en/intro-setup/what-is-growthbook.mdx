@@ -83,6 +83,16 @@ console.log(config.theme); // 'dark' if the flag is on, 'light' otherwise`;
 GrowthBook runs experiments on YOUR data warehouse — it never ingests or stores your raw event data.
 </Callout>
 
+## Common mistakes
+
+- Treating GrowthBook as just an on/off "feature switch" and never using the experimentation/analytics side
+- Choosing self-hosting without an ops team to maintain it, leading to frequent downtime
+- Not connecting a real data warehouse, so analytics has no data to work with
+
+> 💡 Real-world example
+>
+> Large consumer products commonly run internal feature-flagging and experimentation systems with similar concepts to test UI changes across tens of millions of users, and organizations with heavy experimentation cultures run large numbers of concurrent experiments using the same core ideas GrowthBook is built on.
+
 export const quizWhatIs = [
   {
     q: 'How many core pillars does GrowthBook have?',

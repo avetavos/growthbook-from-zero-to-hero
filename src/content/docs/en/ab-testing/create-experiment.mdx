@@ -85,6 +85,23 @@ if (variation === 'variant') {
 Start with a clear hypothesis and one primary metric. Defining the primary metric before you start prevents HARKing (Hypothesizing After Results are Known) and keeps your statistical analysis honest.
 </Callout>
 
+## Trade-offs
+
+| Option | Benefit | Cost |
+|---|---|---|
+| Experiment with a clear hypothesis defined upfront | Measures the right thing, easier to decide on | Requires time to think through the hypothesis before starting |
+| Experiment that just "tries something" with no hypothesis | Starts faster | Risks p-hacking — finding a fake pattern after the fact |
+
+## Common mistakes
+
+- Starting an experiment without a clear hypothesis
+- Testing several variations at once by changing multiple things in one variant (so you can't tell what actually drove the result)
+- Ending an experiment too early, before reaching the planned sample size
+
+> 💡 Real-world example
+>
+> Teams that write down a falsifiable hypothesis before every experiment reduce the risk of interpreting ambiguous results to fit a preferred conclusion after the fact.
+
 export const quizCreateExperiment = [
   {
     q: 'Where in the GrowthBook UI do you create an experiment?',

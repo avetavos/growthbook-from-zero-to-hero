@@ -67,6 +67,23 @@ Dimensions are useful for detecting heterogeneous treatment effects — for exam
 Looking at results early and making decisions when sample sizes are small is called "peeking" — it inflates the false positive rate significantly. Let your experiment run to the planned sample size or duration before drawing conclusions. Use GrowthBook's sequential testing option if you need to peek safely.
 </Callout>
 
+## Trade-offs
+
+| Option | Benefit | Cost |
+|---|---|---|
+| Wait for the planned sample size | More statistically confident | Takes longer to decide |
+| Peek early and decide fast | Faster | Risk of false positives without sequential testing |
+
+## Common mistakes
+
+- Stopping an experiment the moment it looks "winning" without waiting for statistical significance
+- Looking at a single metric without checking guardrail metrics
+- Interpreting "not significant" as "no effect," when the sample size may simply be too small
+
+> 💡 Real-world example
+>
+> Growth teams commonly enforce a rule against shipping an experiment result that hasn't reached statistical significance, no matter how good the result looks.
+
 export const quizExperimentResults = [
   {
     q: 'What does "Chance to Win" mean in GrowthBook\'s Bayesian results?',

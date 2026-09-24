@@ -32,7 +32,7 @@ export const pipelineDiagram = `flowchart TD
   wh --> gb["GrowthBook queries on demand"]
   gb --> ui["Results shown in GrowthBook UI"]`;
 
-<Mermaid code={pipelineDiagram} title="How GrowthBook fits in your stack" />
+<Mermaid code={pipelineDiagram} title="GrowthBook เข้ากับ stack ของคุณอย่างไร" />
 
 GrowthBook ไม่เคย ingest raw events โดยตรง แต่เชื่อมต่อกับ warehouse ของคุณด้วย read-only credentials และรัน SQL queries เมื่อคุณกด **Update Data** ใน UI หรือตั้งเวลา refresh
 

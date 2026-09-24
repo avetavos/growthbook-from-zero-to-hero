@@ -86,6 +86,23 @@ console.log({ paymentOn, checkoutOn, expressOn });`;
 Prerequisites let a flag depend on another — useful for staged dependencies where turning off the parent flag should silently deactivate all children without a code deploy.
 </Callout>
 
+## Trade-offs
+
+| Option | Benefit | Cost |
+|---|---|---|
+| Set a prerequisite flag | Prevents dependencies from being turned on out of order | Adds complexity to the dependency graph |
+| Skip prerequisites | Simpler | Risk of a feature being enabled before its dependency is ready |
+
+## Common mistakes
+
+- Creating a circular dependency between flags (flag A depends on B, B depends on A)
+- Forgetting that turning off a prerequisite always turns off the dependent feature too
+- Not documenting the dependency graph, so other teams don't know why a flag is off
+
+> 💡 Real-world example
+>
+> Large platform teams commonly use prerequisite flags to require that a new feature waits for an infrastructure flag (e.g. "new-api-ready") to be enabled first.
+
 export const quizPrerequisites = [
   {
     q: 'What happens to a dependent flag when its prerequisite parent flag is OFF?',

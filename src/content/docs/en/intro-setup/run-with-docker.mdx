@@ -17,7 +17,7 @@ The fastest way to run GrowthBook locally is with Docker Compose. The Compose st
 
 ## Step-by-step walkthrough
 
-1. **Save the compose.yaml** shown in the box above to your project root. The file defines two services — `mongo` and `growthbook` — and one named volume for file uploads.
+1. **Save the compose.yaml** shown in the box above to your project root. The file defines two services — `mongo` and `growthbook` — and two named volumes: one for MongoDB's data directory, one for file uploads.
 
 2. **Start GrowthBook in the background** by running:
 
@@ -34,7 +34,7 @@ docker compose up -d
 5. **Stop and inspect the stack** when you are done:
 
 ```bash
-# Stop all containers (data is preserved in the uploads volume)
+# Stop all containers (data is preserved in the named volumes)
 docker compose down
 
 # Tail live logs for the growthbook container only
@@ -50,6 +50,7 @@ services:
     environment:
       - MONGO_INITDB_ROOT_USERNAME=root
       - MONGO_INITDB_ROOT_PASSWORD=password
+    volumes: ["mongodata:/data/db"]
   growthbook:
     image: growthbook/growthbook:latest
     ports: ["3000:3000", "3100:3100"]
@@ -59,7 +60,12 @@ services:
     volumes: ["uploads:/usr/local/src/app/packages/back-end/uploads"]
 volumes:
   uploads:
+  mongodata:
 ```
+
+<Callout title="Verified with docker compose">
+Tested on 2026-09-24 with `mongo:latest` and `growthbook/growthbook:latest`: without the `mongodata` volume, `docker compose down` followed by `docker compose up -d` creates a fresh, empty MongoDB — every flag, experiment, and user you created is gone even though the `uploads` volume survives. The `mongodata` volume above is required for `docker compose down` to be safe.
+</Callout>
 
 ## Port reference
 
@@ -76,7 +82,7 @@ GrowthBook stores all of its own configuration in MongoDB — feature flag defin
 export const dockerCmdsCode = `# Start GrowthBook and MongoDB in the background
 docker compose up -d
 
-# Stop all containers (data is preserved)
+# Stop all containers (data is preserved in the named volumes)
 docker compose down
 
 # Tail live logs for the growthbook container
@@ -87,6 +93,23 @@ docker compose logs -f growthbook`;
 <Callout title="Key point">
   Port 3000 is the GrowthBook app — your admin UI. Port 3100 is the SDK API — the endpoint your applications call to fetch feature flags. Both come from the same Compose stack.
 </Callout>
+
+## Trade-offs
+
+| Option | Benefit | Cost |
+|---|---|---|
+| Self-host with Docker Compose | Full control, no subscription cost | You handle ops yourself (backup, upgrades, uptime) |
+| GrowthBook Cloud | No infrastructure to manage | Less control over your data and possible cost |
+
+## Common mistakes
+
+- Running GrowthBook without persisting the MongoDB volume, so data is lost on container restart
+- Not setting critical environment variables (e.g. `MONGODB_URI`, `JWT_SECRET`) securely for production
+- Forgetting to back up the database before upgrading versions
+
+> 💡 Real-world example
+>
+> Small startups commonly start with self-hosted Docker Compose to save cost, then move to managed hosting once the team grows.
 
 export const quizDocker = [
   {

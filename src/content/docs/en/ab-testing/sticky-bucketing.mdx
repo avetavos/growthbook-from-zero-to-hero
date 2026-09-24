@@ -62,6 +62,23 @@ console.log('Variation:', result.value);`;
 Sticky bucketing prevents users from flipping variations mid-experiment.
 </Callout>
 
+## Trade-offs
+
+| Option | Benefit | Cost |
+|---|---|---|
+| Sticky bucketing | Users always see the same variation, consistent UX | Requires managing extra storage (cookie/localStorage) |
+| Not sticky (recalculate every time) | Simpler, no state to store | Users may see the variation change mid-experience |
+
+## Common mistakes
+
+- Not enabling sticky bucketing for experiments users experience over a long period (e.g. pricing), so users see the price flip back and forth
+- Changing a targeting attribute while an experiment is running without understanding the effect on sticky assignment
+- Not configuring appropriate storage to persist the sticky bucket on the client
+
+> 💡 Real-world example
+>
+> An e-commerce platform running A/B tests on product pricing must use sticky bucketing, so the same user doesn't see a different price on each visit.
+
 export const quizStickyBucketing = [
   {
     q: 'What problem does sticky bucketing solve?',

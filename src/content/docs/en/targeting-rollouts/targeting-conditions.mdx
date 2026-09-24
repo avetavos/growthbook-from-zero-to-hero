@@ -84,6 +84,23 @@ console.log('beta-feature:', isBetaEnabled);`;
 Combine multiple conditions on a single rule to narrow the audience precisely — e.g. employees in Thailand on the pro plan. Users who do not match all conditions skip the rule and fall through to the next one.
 </Callout>
 
+## Trade-offs
+
+| Option | Benefit | Cost |
+|---|---|---|
+| Complex targeting conditions | Much more precise | Harder to debug when results don't match expectations |
+| Simple conditions | Easier to debug | Coarser, covers fewer use cases |
+
+## Common mistakes
+
+- Writing self-contradicting conditions (e.g. country = TH AND country = US), matching no users at all
+- Nesting so many condition layers that no one on the team can read them
+- Not testing the condition against real users before shipping it
+
+> 💡 Real-world example
+>
+> Growth teams commonly combine several layers of targeting conditions (country + device + subscription tier) to release a feature to the segment most likely to respond well first.
+
 export const quizTargetingConditions = [
   {
     q: 'A rule has two conditions: `country equals TH` and `plan equals pro`. A user has `country: TH` and `plan: free`. Does the rule match?',

@@ -90,6 +90,23 @@ WHERE
 Fact Table metrics are defined once and can be attached to any experiment as a goal or guardrail metric. You never need to re-write the same SQL for each experiment. This also makes your metric definitions auditable and version-controllable if you export them via the GrowthBook API.
 </Callout>
 
+## Trade-offs
+
+| Option | Benefit | Cost |
+|---|---|---|
+| A narrowly-scoped goal metric | Measures exactly the thing you care about | May miss side effects other metrics would catch |
+| A broad, all-encompassing metric | Covers a wider range of impact | Harder to interpret what actually drove the result |
+
+## Common mistakes
+
+- Defining a metric that doesn't match the real business goal (measuring a vanity metric instead of real conversion)
+- Not setting a guardrail metric, missing bad side effects (e.g. slower page loads)
+- Changing a metric's definition mid-experiment, making before/after comparisons invalid
+
+> 💡 Real-world example
+>
+> Data teams commonly pair a guardrail metric (e.g. error rate, latency) with every goal metric, to catch unexpected side effects.
+
 export const quizDefiningMetrics = [
   {
     q: 'What is the purpose of a Fact Table in GrowthBook?',

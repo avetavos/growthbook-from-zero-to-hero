@@ -17,7 +17,7 @@ import ProgressTracker from '../../../../components/ProgressTracker.tsx';
 
 ## ขั้นตอนทีละขั้น
 
-1. **บันทึก compose.yaml** ที่แสดงในกล่องด้านบนไว้ที่ root ของโปรเจกต์คุณ ไฟล์นี้นิยาม service สองตัว — `mongo` และ `growthbook` — และ named volume หนึ่งตัวสำหรับเก็บไฟล์ที่อัปโหลด
+1. **บันทึก compose.yaml** ที่แสดงในกล่องด้านบนไว้ที่ root ของโปรเจกต์คุณ ไฟล์นี้นิยาม service สองตัว — `mongo` และ `growthbook` — และ named volume สองตัว: หนึ่งตัวสำหรับ data directory ของ MongoDB อีกตัวสำหรับเก็บไฟล์ที่อัปโหลด
 
 2. **เริ่ม GrowthBook แบบทำงานเบื้องหลัง** โดยรัน:
 
@@ -34,7 +34,7 @@ docker compose up -d
 5. **หยุดและตรวจสอบสแตก** เมื่อคุณทำเสร็จแล้ว:
 
 ```bash
-# Stop all containers (data is preserved in the uploads volume)
+# Stop all containers (data is preserved in the named volumes)
 docker compose down
 
 # Tail live logs for the growthbook container only
@@ -50,6 +50,7 @@ services:
     environment:
       - MONGO_INITDB_ROOT_USERNAME=root
       - MONGO_INITDB_ROOT_PASSWORD=password
+    volumes: ["mongodata:/data/db"]
   growthbook:
     image: growthbook/growthbook:latest
     ports: ["3000:3000", "3100:3100"]
@@ -59,7 +60,12 @@ services:
     volumes: ["uploads:/usr/local/src/app/packages/back-end/uploads"]
 volumes:
   uploads:
+  mongodata:
 ```
+
+<Callout title="ตรวจสอบแล้วด้วย docker compose">
+ทดสอบเมื่อ 2026-09-24 ด้วย `mongo:latest` และ `growthbook/growthbook:latest`: ถ้าไม่มี volume `mongodata`, การรัน `docker compose down` ตามด้วย `docker compose up -d` จะสร้าง MongoDB ใหม่ที่ว่างเปล่า — flag, experiment และ user ทั้งหมดที่คุณสร้างไว้จะหายไป ถึงแม้ volume `uploads` จะยังอยู่ก็ตาม volume `mongodata` ด้านบนจำเป็นเพื่อให้ `docker compose down` ปลอดภัย
+</Callout>
 
 ## ตารางอ้างอิง Port
 
@@ -76,7 +82,7 @@ GrowthBook เก็บ configuration ของตัวเองทั้งห
 export const dockerCmdsCode = `# Start GrowthBook and MongoDB in the background
 docker compose up -d
 
-# Stop all containers (data is preserved)
+# Stop all containers (data is preserved in the named volumes)
 docker compose down
 
 # Tail live logs for the growthbook container
@@ -103,7 +109,7 @@ docker compose logs -f growthbook`;
 
 > 💡 ตัวอย่างจากของจริง
 >
-> ทีม startup ขนาดเล็กมักเริ่มด้วย self-host Docker Compose เพื่อประหยัดค่าใช้จ่ายก่อนย้ายไป managed hosting เมื่อทีมโตขึ้น
+> ทีม startup ขนาดเล็กมักเริ่มด้วย self-host Docker Compose เพื่อประหยัดค่าใช้จ่าย ก่อนย้ายไป managed hosting เมื่อทีมโตขึ้น
 
 export const quizDocker = [
   {

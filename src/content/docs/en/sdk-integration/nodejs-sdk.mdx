@@ -67,6 +67,23 @@ async function handleRequest(req, res) {
   On the server, always create a fresh GrowthBook instance (or clone) per request. Sharing one instance with mutable attributes causes concurrent requests to overwrite each other's user context.
 </Callout>
 
+## Trade-offs
+
+| Option | Benefit | Cost |
+|---|---|---|
+| Server-side SDK | Safer, full control over backend logic | You manage caching/refresh yourself so you don't query on every request |
+| Call the API directly on every request | Easier to reason about | Higher latency and more load on GrowthBook's backend service |
+
+## Common mistakes
+
+- Re-fetching the feature payload on every request instead of fetching it once and reusing it — creating a new lightweight instance per request is fine and recommended; it's the network fetch of the payload that's expensive
+- Not caching the feature payload, so every request makes a network call to the CDN
+- Forgetting to refresh the payload when a flag changes in the UI
+
+> 💡 Real-world example
+>
+> Larger backend services typically fetch the feature payload once per process, refresh it in the background and keep it in memory, then create a cheap new instance per request that reuses the cached payload — giving both per-request targeting and near-zero latency since there's no re-fetch.
+
 export const quizNodeSdk = [
   {
     q: 'Why should you create a fresh GrowthBook instance per request on the server?',

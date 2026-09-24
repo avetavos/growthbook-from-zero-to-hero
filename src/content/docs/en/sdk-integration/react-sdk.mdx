@@ -74,6 +74,23 @@ function HomePage() {
   Add `<GrowthBookProvider>` once at your app root, then call hooks like `useFeatureIsOn` in any component without prop-drilling.
 </Callout>
 
+## Trade-offs
+
+| Option | Benefit | Cost |
+|---|---|---|
+| `GrowthBookProvider` + hooks | Integrates cleanly with the React lifecycle, re-renders automatically | Requires understanding the React Context pattern |
+| Calling the SDK directly outside React | Full control over the logic | You must sync re-renders yourself — risk of the UI not updating with the flag |
+
+## Common mistakes
+
+- Calling `useFeatureValue` before the SDK has finished `init()`, always getting the default value
+- Creating a new GrowthBook instance on every component re-render
+- Not wrapping the app with `GrowthBookProvider`, losing the context
+
+> 💡 Real-world example
+>
+> Many frontend teams use the same pattern as regular React Context — a provider at the top, with hooks reading the value in lower layers.
+
 export const quizReactSdk = [
   {
     q: 'Which package provides the React-specific GrowthBook hooks?',

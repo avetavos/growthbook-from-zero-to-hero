@@ -92,6 +92,23 @@ const isOn = gb.isOn('my-flag');`;
 Each environment has its own SDK Connection (clientKey) and completely independent flag states. Enabling a flag in development never touches production. Always store clientKeys in environment variables — never hard-code them in source.
 </Callout>
 
+## Trade-offs
+
+| Option | Benefit | Cost |
+|---|---|---|
+| Clearly separate environments (dev/staging/prod) | Safer, lets you test before releasing | More SDK keys/permissions to manage |
+| A single environment | Faster to set up | Risk of a flag leaking into production unintentionally |
+
+## Common mistakes
+
+- Testing a flag directly in production without going through staging first
+- Forgetting to sync flag values between environments, so staging and production drift apart
+- Giving every team member unrestricted permission to edit the production environment
+
+> 💡 Real-world example
+>
+> Large engineering organizations typically enforce strict per-environment permissions — only senior engineers can modify production.
+
 export const quizEnvironments = [
   {
     q: 'How many SDK Connections does a typical GrowthBook project have for three environments?',

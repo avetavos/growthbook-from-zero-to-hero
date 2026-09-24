@@ -10,9 +10,7 @@ import Callout from '../../../../components/Callout.astro';
 import Quiz from '../../../../components/Quiz.tsx';
 import ProgressTracker from '../../../../components/ProgressTracker.tsx';
 
-## การ Init แบบ One-Shot (Default)
-
-โดย default `gb.init()` ทำ HTTP fetch ครั้งเดียวเพื่อดึง feature definitions ล่าสุดจาก GrowthBook CDN วิธีนี้เหมาะกับหลาย use case แต่หมายความว่า flag changes จะมีผลก็ต่อเมื่อ `init()` ทำงานครั้งถัดไป — โดยทั่วไปคือเมื่อ page load หรือ server restart
+โดย default `gb.init()` ทำ HTTP fetch ครั้งเดียวเพื่อดึง feature definitions ล่าสุดจาก GrowthBook CDN วิธีนี้เหมาะกับหลาย use case แต่หมายความว่า flag changes จะมีผลก็ต่อเมื่อ `init()` ทำงานครั้งถัดไป — โดยทั่วไปคือเมื่อ page load หรือ server restart มีสองกลไกที่เปลี่ยนเรื่องนี้ได้ ได้แก่ **SSE streaming** และ **feature cache**
 
 ## Streaming ผ่าน SSE
 
@@ -22,7 +20,11 @@ GrowthBook รองรับ Server-Sent Events เพื่อ push definition
 
 ## Feature Cache
 
-SDK เก็บ in-memory cache โดยใช้ `clientKey` เป็น key cache นี้รองรับค่า `staleTTL` (default 60 วินาที) หลังจาก TTL หมดอายุ การเรียก `init()` ครั้งถัดไปจะ re-fetch ได้ ตั้งค่าด้วย `configure({ staleTTL: 30000 })`
+SDK เก็บ in-memory cache โดยใช้ `clientKey` เป็น key cache นี้รองรับค่า `staleTTL` (default 60 000 ms / 60 วินาที) หลังจาก TTL หมดอายุ การเรียก `init()` ครั้งถัดไปจะ trigger การ re-fetch คุณสามารถลดหรือเพิ่ม TTL แบบ global ได้:
+
+```js
+configure({ staleTTL: 30000 }); // 30 seconds
+```
 
 เมื่อเปิดใช้ streaming cache จะถูก update โดย SSE events ที่เข้ามา ทำให้ TTL มีความสำคัญน้อยลง — ทำหน้าที่เป็น fallback สำหรับ reconnection scenarios
 

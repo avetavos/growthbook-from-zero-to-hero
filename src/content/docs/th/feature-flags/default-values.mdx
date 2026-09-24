@@ -30,7 +30,7 @@ export const fallbackDiagram = `flowchart TD
   match -- "Yes" --> rv["Return rule value"]
   match -- "No match" --> dv["Return Feature default value"]`;
 
-<Mermaid code={fallbackDiagram} title="The three fallback layers" />
+<Mermaid code={fallbackDiagram} title="สาม fallback layer" />
 
 ## ส่ง fallback ที่สมเหตุสมผลเสมอ
 
@@ -126,7 +126,7 @@ document.getElementById('banner').textContent = bannerText;`;
 
 > 💡 ตัวอย่างจากของจริง
 >
-> Facebook ออกแบบระบบ feature flag ให้ default เป็น "safe" เสมอเมื่อ config service ล่ม เพื่อไม่ให้แอป crash ทั้งระบบ
+> ระบบ feature flag ระดับใหญ่มักถูกออกแบบให้ default เป็น "safe" เสมอเมื่อ config service ล่ม เพื่อไม่ให้แอป crash ทั้งระบบ
 
 export const quizDefaultValues = [
   {

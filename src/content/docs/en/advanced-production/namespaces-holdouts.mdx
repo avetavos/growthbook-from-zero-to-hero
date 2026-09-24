@@ -81,6 +81,23 @@ console.log('Variation:', result.value);`;
 Namespaces keep overlapping experiments from contaminating each other — always assign simultaneous experiments that share the same user journey to the same namespace with non-overlapping ranges.
 </Callout>
 
+## Trade-offs
+
+| Option | Benefit | Cost |
+|---|---|---|
+| Use a namespace to separate experiments | Prevents users from hitting multiple conflicting experiments | Reduces the traffic available to each experiment |
+| Skip namespaces | Full traffic per experiment | Risk of experiments interfering without you noticing |
+
+## Common mistakes
+
+- Accidentally running two experiments that touch the same layout in different namespaces, contaminating the results
+- Not setting up a holdout group, so you cannot measure the long-term impact of shipped features as a whole
+- Forgetting that namespace ranges are a fixed split of traffic — changing them mid-experiment skews the sample
+
+> 💡 Real-world example
+>
+> Facebook's PlanOut experimentation framework uses a namespaced management system to run experiments iteratively and in parallel without interference ([Bakshy, Eckles & Bernstein, "Designing and Deploying Online Field Experiments," WWW 2014](https://arxiv.org/abs/1409.3174)).
+
 export const quizNamespacesHoldouts = [
   {
     q: 'What does a GrowthBook namespace guarantee?',

@@ -75,6 +75,23 @@ To add a prerequisite:
 Define `beta-testers` once, then reference it in every feature that should roll out to beta users first. Updating the group membership in one place updates every rule that uses it.
 </Callout>
 
+## Trade-offs
+
+| Option | Benefit | Cost |
+|---|---|---|
+| Saved group | Reusable across many features/experiments | Must be maintained to stay in sync with real business logic |
+| One-off forced assignment | Faster for temporary QA/debugging | Not reusable, easy to forget to remove |
+
+## Common mistakes
+
+- Leaving a forced assignment in production longer than necessary (it should only be used for temporary QA/debugging)
+- Creating multiple duplicate saved groups for the same segment
+- Forgetting to remove yourself from a forced group after QA, skewing the data you see
+
+> 💡 Real-world example
+>
+> QA teams commonly use forced assignment to preview a new feature before it launches, without affecting the traffic assignment of real users.
+
 export const quizForcedSavedGroups = [
   {
     q: 'What does a forced-value rule do?',

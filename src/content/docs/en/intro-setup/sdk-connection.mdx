@@ -61,6 +61,23 @@ if (gb.isOn('my-feature')) {
 An SDK Connection scopes a clientKey to a specific environment. Use a separate SDK Connection (and thus separate clientKey) for development vs production to keep flag states isolated.
 </Callout>
 
+## Trade-offs
+
+| Option | Benefit | Cost |
+|---|---|---|
+| A separate SDK key per environment | Safer, limits blast radius | More keys to manage |
+| The same SDK key everywhere | Faster to set up | Risk of flags leaking across environments |
+
+## Common mistakes
+
+- Using the same SDK key for both dev and production, so flags are tested against the wrong environment unintentionally
+- Hardcoding the `clientKey` in client-side code instead of an environment variable
+- Not setting a timeout on `gb.init()`, so the app hangs waiting on the network
+
+> 💡 Real-world example
+>
+> Large engineering organizations commonly separate SDK connections per service/microservice, to limit the blast radius if a key leaks.
+
 export const quizSdkConn = [
   {
     q: 'What is the apiHost for a self-hosted GrowthBook SDK?',

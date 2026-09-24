@@ -96,6 +96,24 @@ console.log(config.size);  // 'md' or whatever GrowthBook returns`;
 JSON flags let you ship configuration, not just on/off switches. Instead of deploying five separate flags for a pricing page redesign, put all the options in one JSON flag and change them atomically in GrowthBook.
 </Callout>
 
+## Trade-offs
+
+| Type | Benefit | Cost |
+|---|---|---|
+| Boolean | Simplest, instantly understood | Only supports on/off |
+| String / Number | Enables multi-variant flags | More values to manage than boolean |
+| JSON | Most flexible, supports complex config | You must parse/validate it yourself — risk of runtime errors |
+
+## Common mistakes
+
+- Using a JSON flag for config that should just be a boolean, adding needless complexity
+- Not validating the schema of a JSON flag, so the app crashes if someone edits it incorrectly
+- Changing the value type of an existing flag, breaking code that reads it
+
+> 💡 Real-world example
+>
+> Teams often use JSON-type flags for complex UI config (e.g. a home page layout) so it can be tuned in detail without a deploy.
+
 export const quizFlagTypes = [
   {
     q: 'Which value type should you use for a simple feature gate (show/hide a UI element)?',

@@ -63,6 +63,23 @@ if (result.inExperiment) {
 `gb.run()` lets you define an experiment directly in code when you don't want a feature rule.
 </Callout>
 
+## Trade-offs
+
+| Option | Benefit | Cost |
+|---|---|---|
+| Feature-flag experiment | Ties logic to existing code, more flexible | Requires a code change to wire up the experiment |
+| Visual editor experiment | No code changes needed | Limited to UI changes only |
+
+## Common mistakes
+
+- Calling `getFeatureValue` without a stable user attribute, so assignment is not stable across sessions
+- Not tracking the exposure event, leaving the analysis with no data
+- Mixing multiple SDK versions' implementation patterns in the same codebase, causing inconsistent behavior
+
+> 💡 Real-world example
+>
+> Engineering teams generally wire experiments into an existing feature flag rather than creating a separate experiment, to reduce the number of code paths they have to maintain.
+
 export const quizSdkExperiments = [
   {
     q: 'What does gb.run() return?',

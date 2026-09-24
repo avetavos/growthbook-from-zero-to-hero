@@ -89,6 +89,23 @@ console.log('Theme:', theme);`;
 Call `setAttributes` before any `isOn` or `getFeatureValue` call so targeting rules have the user context they need.
 </Callout>
 
+## Trade-offs
+
+| Option | Benefit | Cost |
+|---|---|---|
+| Client-side SDK | Real-time, can personalize instantly based on the browser | Users can see flag values via dev tools — don't use it for business-critical secrets |
+| Server-side rendering of the flag | Hides the logic from the client | Adds a server round-trip before rendering |
+
+## Common mistakes
+
+- Not setting a timeout on `init()`, leaving the UI stuck waiting
+- Not handling the case where the SDK hasn't loaded yet (causes content flicker)
+- Forgetting to clean up on component/page unmount, causing a memory leak
+
+> 💡 Real-world example
+>
+> Many e-commerce sites use a client-side SDK like this to test UI elements, such as a checkout button, in real time without waiting for a new deploy.
+
 export const quizJsSdk = [
   {
     q: 'What npm package provides the vanilla GrowthBook JS SDK?',

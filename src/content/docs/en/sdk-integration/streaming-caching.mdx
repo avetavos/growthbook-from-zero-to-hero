@@ -71,6 +71,23 @@ console.log(gb.isOn('dark-mode')); // true
   With `streaming: true`, flag changes made in the GrowthBook UI reach your SDK in seconds — no redeploy, no cache wait.
 </Callout>
 
+## Trade-offs
+
+| Option | Benefit | Cost |
+|---|---|---|
+| Streaming updates (SSE) | Flags change in real time, the instant they're edited in the UI | Adds connection overhead per client |
+| Regular polling / cache | Cheaper on resources | Some delay before you see the change |
+
+## Common mistakes
+
+- Setting the cache TTL too high, so a flag changed in the UI takes a long time to reach users
+- Not closing the SSE connection on component unmount, leaking connections
+- No fallback when the streaming connection drops
+
+> 💡 Real-world example
+>
+> Large mobile apps commonly use a local-first cache combined with background refresh, so flags keep working even on a poor network connection.
+
 export const quizStreamingCaching = [
   {
     q: 'How do you enable real-time SSE flag updates in the GrowthBook SDK?',

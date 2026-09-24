@@ -92,6 +92,23 @@ const flagValue = gb.getFeatureValue('my-flag', false);`;
 The feature **key** is the contract between GrowthBook and your code — keep it stable. Renaming a key in GrowthBook after you deploy breaks every SDK call that still uses the old name.
 </Callout>
 
+## Trade-offs
+
+| Option | Benefit | Cost |
+|---|---|---|
+| Boolean flag | Simplest, easiest to understand | Only on/off, not flexible |
+| Multi-variate / JSON flag | Much more flexible, fine-grained config | More complex to maintain and validate |
+
+## Common mistakes
+
+- Creating a flag without a meaningful name (e.g. `flag1`)
+- Not setting a description, so other teams don't understand what the flag does
+- Creating duplicate flags for the same feature across multiple environments
+
+> 💡 Real-world example
+>
+> Teams with thousands of flags typically enforce a clear naming convention (team-feature-purpose) so flags stay searchable and auditable at scale.
+
 export const quizCreateFlag = [
   {
     q: 'Where in the GrowthBook UI do you create a new Feature?',

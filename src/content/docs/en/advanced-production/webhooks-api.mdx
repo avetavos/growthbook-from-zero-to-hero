@@ -103,6 +103,23 @@ export const eventWebhookPayload = `// Example GrowthBook event webhook payload 
 Use the REST API and webhooks together to automate flag changes from CI/CD — the API toggles the flag, and the webhook tells your servers to invalidate their SDK cache immediately.
 </Callout>
 
+## Trade-offs
+
+| Option | Benefit | Cost |
+|---|---|---|
+| Webhook | Real-time notification when a flag changes, good for automation | You have to handle retries/signature verification yourself |
+| Polling via the API | Simpler | Adds delay and wastes requests |
+
+## Common mistakes
+
+- Not verifying the webhook signature, risking forged requests
+- Not handling retries when the webhook endpoint is down, missing events
+- Storing the API key in client-side code that is reachable externally
+
+> 💡 Real-world example
+>
+> DevOps teams commonly wire GrowthBook webhooks to Slack to get an immediate alert whenever someone changes a flag in production, which speeds up auditing and debugging.
+
 export const quizWebhooksApi = [
   {
     q: 'Where in GrowthBook do you create an API key?',

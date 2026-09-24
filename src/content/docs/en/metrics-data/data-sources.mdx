@@ -73,6 +73,23 @@ If you are just getting started and don't have a data warehouse, GrowthBook can 
 The experiment assignment query tells GrowthBook who saw which variation and when. Every metric and statistical result flows from this query — if it is wrong or incomplete, all downstream analysis will be wrong. Verify it with a direct SQL preview before saving.
 </Callout>
 
+## Trade-offs
+
+| Option | Benefit | Cost |
+|---|---|---|
+| Connect your own data warehouse | Data never leaves your infrastructure, full control | Requires a warehouse and an ops team to maintain it |
+| Third-party event tracking | Faster to set up | Data lives outside your team's control |
+
+## Common mistakes
+
+- Connecting a data source whose schema doesn't match what GrowthBook expects, producing incorrect metric queries
+- Not granting GrowthBook the right permissions to query the warehouse (slow or blocked queries)
+- Using a sampled table instead of the full event table, skewing results
+
+> 💡 Real-world example
+>
+> Companies that already run Snowflake or BigQuery internally often pick GrowthBook because it connects directly to their existing warehouse instead of duplicating data into a new system.
+
 export const quizDataSources = [
   {
     q: 'What does GrowthBook do with the data in your warehouse?',

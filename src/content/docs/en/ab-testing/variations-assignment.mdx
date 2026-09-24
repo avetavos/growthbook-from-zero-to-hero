@@ -85,6 +85,23 @@ await gb.init({ timeout: 2000 });`;
 Assignment is deterministic — the same user always sees the same variation.
 </Callout>
 
+## Trade-offs
+
+| Option | Benefit | Cost |
+|---|---|---|
+| Deterministic hashing | No server-side state to store, scales easily | Overriding a single user's assignment is harder |
+| Storing assignment in a database | Easier to control and override | More infrastructure to maintain |
+
+## Common mistakes
+
+- Using a mutable attribute (e.g. a session ID that changes every visit) as the hash key, so the user is reassigned on every visit
+- Not understanding that the traffic percentage you set is not a "sample size" — it is the share of eligible users
+- Changing the variation split mid-experiment, which skews the analysis
+
+> 💡 Real-world example
+>
+> GrowthBook and most experimentation platforms use a deterministic hash of the user ID as the industry-standard approach for stable, scalable assignment, without storing per-user, per-experiment state on the server.
+
 export const quizVariationsAssignment = [
   {
     q: 'What is the hashAttribute used for in GrowthBook?',

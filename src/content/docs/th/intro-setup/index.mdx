@@ -51,7 +51,7 @@ const gb = new GrowthBook({
   clientKey: "sdk-abc123",          // from SDK Connection page
 });
 
-await gb.loadFeatures();
+await gb.init();
 
 if (gb.isOn("dark-mode")) {
   enableDarkMode();
@@ -65,7 +65,7 @@ const gb = new GrowthBook({
   clientKey: "sdk-abc123",          // from SDK Connection page
 });
 
-await gb.loadFeatures();
+await gb.init();
 
 if (gb.isOn("dark-mode")) {
   enableDarkMode();

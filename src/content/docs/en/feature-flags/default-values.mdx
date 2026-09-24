@@ -111,6 +111,23 @@ document.getElementById('banner').textContent = bannerText;`;
 Always pass a sensible fallback to `getFeatureValue` so your app behaves correctly if GrowthBook is unreachable. The fallback should represent the stable, safe user experience — usually the behaviour your app had before the flag was introduced.
 </Callout>
 
+## Trade-offs
+
+| Option | Benefit | Cost |
+|---|---|---|
+| Safe fallback default value | The app doesn't break even if the SDK fails | The feature may look less complete during fallback |
+| Default matching the new experience | Closer to what you intended | Risky if the SDK fails and you have to rely on this default |
+
+## Common mistakes
+
+- Setting the default value to "on" for a risky feature (it should always be a safe fallback)
+- Not testing that the app behaves correctly when the SDK cannot connect and falls back to the default
+- Forgetting that the default value is different from "the value set in the UI"
+
+> 💡 Real-world example
+>
+> Feature-flagging systems at large scale are commonly designed so the default is always "safe" when the config service is down, so the whole app doesn't crash.
+
 export const quizDefaultValues = [
   {
     q: 'What value does the SDK return when a Feature exists in GrowthBook but no override rule matches?',
